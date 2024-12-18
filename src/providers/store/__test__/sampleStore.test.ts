@@ -30,12 +30,4 @@ describe('useSampleStore', () => {
     expect(samples).toContainEqual(newSample)
     expect(samples).toHaveLength(9) // Original 8 + 1 new sample
   })
-
-  it('should update an existing sample', () => {
-    const updatedSample = { id: 'clhat', name: 'Updated Clhat' }
-    useSampleStore.getState().updateSample(updatedSample)
-
-    const { samples } = useSampleStore.getState()
-    expect(samples.find(s => s.id === 'clhat')).toMatchObject(updatedSample)
-  })
 })

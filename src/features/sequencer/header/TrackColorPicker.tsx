@@ -1,4 +1,3 @@
-import { useSampleStore } from '@/providers/store/sampleStore'
 import { useState } from 'react'
 import {
   Popover,
@@ -7,6 +6,7 @@ import {
 } from '@/components/ui/popover'
 import { ColorPicker } from '@/components/color-picker/ColorPicker'
 import { RGB } from '@/lib/color'
+import { useSequenceStore } from '@/providers/store/sequenceStore'
 
 interface ColorPickerProps {
   trackId: string
@@ -14,17 +14,14 @@ interface ColorPickerProps {
 }
 
 export function TrackColorPicker({ trackId, currentColor }: ColorPickerProps) {
-  const updateSample = useSampleStore(state => state.updateSample)
+  const updateSampler = useSequenceStore(state => state.updateSamplerColor)
   const [open, setOpen] = useState(false)
 
   function handleChange(color: RGB) {
-    updateSample({
-      id: trackId,
-      color: {
-        primary: `rgb(${color.r}, ${color.g}, ${color.b})`,
-        muted: `rgba(${color.r}, ${color.g}, ${color.b}, 0.5)`,
-        contrast: `rgba(${color.r}, ${color.g}, ${color.b}, 0.2)`,
-      },
+    updateSampler(trackId, {
+      primary: `rgb(${color.r}, ${color.g}, ${color.b})`,
+      muted: `rgba(${color.r}, ${color.g}, ${color.b}, 0.5)`,
+      contrast: `rgba(${color.r}, ${color.g}, ${color.b}, 0.2)`,
     })
     setOpen(false)
   }
