@@ -2,7 +2,13 @@ import { EffectBus } from '@/features/core/EffectBus'
 import { MainBus } from '@/features/core/MainBus'
 import { Sampler } from '@/features/core/Sampler'
 import { adjustArraySize } from '@/lib/utils'
-import { DisplayMode, Sample, StepCount, Subdivision } from '@/types'
+import {
+  DisplayColor,
+  DisplayMode,
+  Sample,
+  StepCount,
+  Subdivision,
+} from '@/types'
 import { PlaybackState, Sequence, getTransport } from 'tone'
 import { create } from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
@@ -42,7 +48,7 @@ interface SequencerState {
   setDisplayMode: (displayMode: DisplayMode) => void
   updateStep: (step: number, sample: number, active: boolean) => void
   updateVelocity: (velocity: number, sample: number, step: number) => void
-
+  updateSamplerColor: (sampleId: string, color: DisplayColor) => void
   clearSteps: () => void
   clearStepRow: (row: number) => void
 
@@ -193,6 +199,17 @@ export const useSequenceStore = create<SequencerState>()(
             sampler.mute =
               soloChannelIds.size > 0 && !soloChannelIds.has(sampler.id)
           })
+        },
+
+        updateSamplerColor: (sampleId, color) => {
+          const samplers = get().samplers.map(sampler => {
+            if (sampler.id === sampleId) {
+              sampler.meta.color = color
+            }
+            return sampler
+          })
+
+          set({ samplers })
         },
 
         initialize: async () => {

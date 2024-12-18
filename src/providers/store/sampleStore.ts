@@ -20,7 +20,6 @@ interface SampleState {
   samples: Sample[]
   maxSamples: number
   addSample: (sample: Sample) => void
-  updateSample: (sample: Partial<Sample>) => void
   replaceSample: (sample: Sample) => void
   initialize: () => void
 }
@@ -34,12 +33,6 @@ export const useSampleStore = create<SampleState>()(
         addSample: sample =>
           set(state => ({
             samples: [...state.samples, sample],
-          })),
-        updateSample: sample =>
-          set(state => ({
-            samples: state.samples.map(s =>
-              s.id === sample.id ? { ...s, ...sample } : s,
-            ),
           })),
         replaceSample: sample =>
           set(state => ({
