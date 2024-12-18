@@ -1,0 +1,113 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 7%;
+    --foreground: 0 0% 98%;
+    --card: 240 3% 15%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 7%;
+    --popover-foreground: 0 0% 98%;
+    --primary-green: 174 97% 30%;
+    --primary-purple: 267 95% 50%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 5.9% 10%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 20%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 18%;
+    --input: 240 3.7% 15.9%;
+    --ring: 240 4.9% 20%;
+    --radius: 0.5rem;
+
+    /* Thumb Size */
+    --thumb-width: 18px;
+    --thumb-height: 40px;
+
+    --thumb-bg-color: rgb(209, 216, 222);
+    --thumb-highlight-color: rgba(0, 0, 0, 0.8);
+    --thumb-stripe-color: rgba(0, 0, 0, 0.4);
+
+    /* Thumb Shape */
+    --thumb-border-radius: 3px;
+
+    /* Shadows */
+    --thumb-inner-shadow-light: rgba(255, 255, 255, 0.4);
+    --thumb-outer-shadow-dark: rgba(0, 0, 0, 0.4);
+    --thumb-outer-shadow-darker: rgba(0, 0, 0, 0.3);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .scrollbar::-webkit-scrollbar {
+    @apply w-5 h-2;
+  }
+  .scrollbar::-webkit-scrollbar-track {
+    @apply rounded-full bg-accent;
+  }
+  .scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-background/50 rounded-full mt-2 outline outline-accent;
+  }
+
+  .scrollbar::-webkit-scrollbar {
+    margin-top: 2px !important;
+  }
+
+  .flex-center {
+    @apply flex items-center justify-center;
+  }
+
+  .flex-col-center {
+    @apply flex flex-col items-center justify-center;
+  }
+}
+
+@layer components {
+  .fader-thumb {
+    -webkit-appearance: none;
+    position: relative;
+    appearance: none;
+    width: var(--thumb-height);
+    height: var(--thumb-width);
+    background-color: var(--thumb-bg-color);
+    background-image: repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 5px,
+        rgba(0, 0, 0, 1) 6px
+      ),
+      linear-gradient(
+        90deg,
+        rgb(70, 70, 70) 0%,
+        rgb(90, 90, 90) 14%,
+        rgb(20, 20, 20) 15%,
+        rgb(30, 30, 30) 48%,
+        rgb(255, 255, 255) 50%,
+        rgb(30, 30, 30) 52%,
+        rgb(90, 90, 90) 84%,
+        rgb(20, 20, 20) 85%,
+        rgb(30, 30, 30) 100%
+      );
+    cursor: pointer;
+    border-radius: var(--thumb-border-radius);
+    box-shadow:
+      0 0 0 2px rgba(0, 0, 0, 0.25) inset,
+      0 0.25rem 0.5rem 0 rgba(0, 0, 0, 0.5);
+  }
+}
