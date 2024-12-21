@@ -27,7 +27,7 @@ export function TrackStep({ row, column, displayColor }: TrackStepProps) {
       }}
       data-group={groupByColumn(column)}
       className={cn(
-        'cell grid border border-border/70 min-w-10 h-full relative overflow-hidden',
+        'cell grid border border-border/70 w-full h-full relative overflow-hidden',
         "data-[group='odd']:bg-accent/90 bg-muted/40 rounded-[2px] focus-within:border-foreground",
       )}
     >

@@ -10,7 +10,7 @@ export function TrackSteps({ sampler }: TrackStepsProps) {
   const stepCount = useSequenceStore(state => state.stepCount)
 
   return (
-    <ul className='gap-1 p-1 py-1.5 grid grid-flow-col'>
+    <ul className='grid grid-flow-col gap-1 p-1 py-1.5 w-full'>
       {[...Array(stepCount).keys()].map(step => (
         <TrackStep
           key={step}
