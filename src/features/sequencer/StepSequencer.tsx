@@ -38,7 +38,7 @@ export function StepSequencer() {
       <ul className='overflow-x-auto scrollbar'>
         {samplers.map(sampler => (
           <li key={sampler.meta.id} className='grid grid-cols-[1fr_3rem] group'>
-            <div className='grid grid-cols-[20rem_1fr] border-b group-last:border-b-0'>
+            <div className='grid grid-cols-[13rem_1fr] lg:grid-cols-[20rem_1fr] border-b group-last:border-b-0'>
               <TrackHeader sampler={sampler} />
               <ShadowContainer>
                 {TrackContent && <TrackContent sampler={sampler} />}
