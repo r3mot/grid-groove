@@ -37,7 +37,7 @@ export function TransportBPM() {
       className={cn(
         'shadow-[inset_0px_3px_6px_0px_rgba(0,_0,_0,_0.7)]',
         'cursor-row-resize bg-background/90 border rounded-md h-10 select-none',
-        'inline-flex items-center',
+        'hidden xl:inline-flex items-center',
       )}
     >
       <div className='flex items-baseline justify-between px-4'>
