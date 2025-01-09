@@ -1,30 +1,34 @@
 import { cn, groupByColumn } from '@/lib/utils'
-import { useSequenceStore } from '@/providers/store/sequenceStore'
 import { DisplayColor } from '@/types'
 
 interface TrackStepProps {
   row: number
   column: number
   displayColor: DisplayColor
+  isActive: boolean
+  onStepChange: (column: number, row: number, value: boolean) => void
 }
 
-export function TrackStep({ row, column, displayColor }: TrackStepProps) {
-  const steps = useSequenceStore(state => state.steps)
-  const updateStep = useSequenceStore(state => state.updateStep)
-
-  const isStepActive = steps[row][column]
-
+export function TrackStep({
+  row,
+  column,
+  displayColor: { primary, muted },
+  isActive,
+  onStepChange,
+}: TrackStepProps) {
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    updateStep(column, row, e.target.checked)
+    onStepChange(column, row, e.target.checked)
+  }
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLLIElement>) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      onStepChange(column, row, !isActive)
+    }
   }
 
   return (
     <li
-      onKeyDown={e => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          updateStep(column, row, !isStepActive)
-        }
-      }}
+      onKeyDown={handleKeyDown}
       data-group={groupByColumn(column)}
       className={cn(
         'cell grid border border-border/70 w-full h-full relative overflow-hidden',
@@ -33,15 +37,15 @@ export function TrackStep({ row, column, displayColor }: TrackStepProps) {
     >
       <div
         style={{
-          background: isStepActive
-            ? `radial-gradient(circle, ${displayColor.primary} 0%, ${displayColor.muted} 100%)`
+          background: isActive
+            ? `radial-gradient(circle, ${primary} 0%, ${muted} 100%)`
             : '',
         }}
         className='absolute inset-0'
       />
       <input
         type='checkbox'
-        checked={isStepActive}
+        checked={isActive}
         onChange={handleChange}
         className='absolute inset-0 opacity-0'
       />
