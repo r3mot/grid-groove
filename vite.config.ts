@@ -16,6 +16,10 @@ export default defineConfig({
         },
       },
     },
+    coverage: {
+      provider: 'istanbul',
+      exclude: ['**/components/ui/**', '**/components/icons/**'],
+    },
   },
   resolve: {
     alias: {
