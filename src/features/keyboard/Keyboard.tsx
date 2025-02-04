@@ -4,6 +4,7 @@ import { useKeyboardMap } from '@/hooks/useKeyboardMap'
 import { useContext, useEffect, useRef, useState } from 'react'
 import { LightKey, DarkKey } from './KeyboardKey'
 import { KeyboardControls } from './KeyboardControls'
+import { getContext } from 'tone'
 
 export function Keyboard() {
   return (
@@ -35,7 +36,7 @@ function KeyboardInternal() {
       const note = pressKey(e.key)
       if (note && !activeNotes.has(note)) {
         activeNotes.add(note)
-        polySynthRef.current?.triggerAttack(note)
+        polySynthRef.current?.triggerAttack(note, (getContext().lookAhead = 0))
         setVisualNotes(getActiveNotes())
       }
     }
