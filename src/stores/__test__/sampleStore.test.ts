@@ -1,4 +1,5 @@
 import { useSampleStore } from '../sampleStore'
+import { COLORS } from '@/lib/color'
 describe('useSampleStore', () => {
   it('should initialize with precomputed samples', () => {
     const { samples, maxSamples } = useSampleStore.getState()
@@ -8,11 +9,7 @@ describe('useSampleStore', () => {
       id: 'clhat',
       name: 'clhat',
       url: '/audio/clhat.wav',
-      color: {
-        contrast: 'rgba(51,255,51,0.2)',
-        muted: 'rgba(51,255,51,0.5)',
-        primary: 'rgba(51,255,51,1)',
-      },
+      color: COLORS[0],
     })
     expect(maxSamples).toBe(8)
   })
@@ -22,7 +19,7 @@ describe('useSampleStore', () => {
       id: 'newSample',
       name: 'New Sample',
       url: '/audio/newSample.wav',
-      color: { primary: '#fff', muted: '#aaa', contrast: '#000' },
+      color: COLORS[8],
     }
     useSampleStore.getState().addSample(newSample)
 

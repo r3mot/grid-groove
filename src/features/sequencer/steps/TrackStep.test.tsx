@@ -1,6 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import { describe, it, expect, vi } from 'vitest'
 import { TrackStep } from './TrackStep'
+import { COLORS } from '@/lib/color'
 
 describe('TrackStep Component', () => {
   const mockOnStepChange = vi.fn()
@@ -8,7 +9,7 @@ describe('TrackStep Component', () => {
   const defaultProps = {
     row: 0,
     column: 1,
-    displayColor: { primary: '#ff0000', muted: '#cccccc', contrast: '#000000' },
+    displayColor: COLORS[0],
     isActive: false,
     onStepChange: mockOnStepChange,
   }
