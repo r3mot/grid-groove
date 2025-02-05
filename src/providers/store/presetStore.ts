@@ -10,7 +10,10 @@ import { RecursivePartial } from 'tone/build/esm/core/util/Interface'
 import { create } from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
 
-interface EffectPreset {
+export type EffectName = 'reverb' | 'chorus' | 'delay' | 'distortion'
+export type PresetName = 'default' | 'loFi' | 'spacious' | 'moog'
+
+export type EffectPreset = {
   reverb: {
     decay: Seconds
     wet: NormalRange
@@ -49,6 +52,7 @@ export const usePresetStore = create<PresetStore>()(
       set => ({
         synthPresets: {
           default: {
+            volume: -12,
             oscillator: { type: 'square' },
             envelope: {
               attack: 0.01,
@@ -67,6 +71,7 @@ export const usePresetStore = create<PresetStore>()(
           },
 
           loFi: {
+            volume: -15,
             oscillator: { type: 'triangle' },
             envelope: {
               attack: 0.2,
@@ -83,8 +88,8 @@ export const usePresetStore = create<PresetStore>()(
               octaves: 1.5,
             },
           },
-
           spacious: {
+            volume: -12,
             oscillator: { type: 'sine' },
             envelope: {
               attack: 1.0,
@@ -103,6 +108,7 @@ export const usePresetStore = create<PresetStore>()(
           },
 
           moog: {
+            volume: -20,
             oscillator: { type: 'sawtooth' },
             envelope: {
               attack: 0.1,
@@ -163,3 +169,9 @@ export const usePresetStore = create<PresetStore>()(
     ),
   ),
 )
+
+export const presetSelector = (state: PresetStore) => ({
+  currentPreset: state.currentPreset,
+  synthPresets: state.synthPresets,
+  effectPresets: state.effectPresets,
+})
