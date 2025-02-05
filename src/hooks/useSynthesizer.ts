@@ -1,5 +1,5 @@
 import { Synthesizer } from '@/features/core/Synthesizer'
-import { presetSelector, usePresetStore } from '@/providers/store/presetStore'
+import { presetSelector, usePresetStore } from '@/stores/presetStore'
 import { useEffect, useRef } from 'react'
 import { useShallow } from 'zustand/shallow'
 

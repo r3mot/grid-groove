@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils'
-import { useSequenceStore } from '@/providers/store/sequenceStore'
+import { useSequenceStore } from '@/stores/sequenceStore'
 import { toggleVariants } from '@/components/ui/toggle'
 import { HeadsetIcon } from '@/components/icons/Headset'
 

@@ -1,4 +1,4 @@
-import { EffectPreset } from '@/providers/store/presetStore'
+import { EffectPreset } from '@/stores/presetStore'
 import {
   Chorus,
   Distortion,

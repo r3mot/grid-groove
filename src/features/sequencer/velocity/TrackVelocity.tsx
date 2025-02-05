@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils'
-import { useSequenceStore } from '@/providers/store/sequenceStore'
+import { useSequenceStore } from '@/stores/sequenceStore'
 import { DisplayColor } from '@/types'
 import { useEffect, useRef, useState } from 'react'
 

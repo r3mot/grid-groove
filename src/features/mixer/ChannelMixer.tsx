@@ -1,4 +1,4 @@
-import { useSequenceStore } from '@/providers/store/sequenceStore'
+import { useSequenceStore } from '@/stores/sequenceStore'
 import { Fragment } from 'react/jsx-runtime'
 import { MainBusChannel } from './channels/MainBusChannel'
 import { SamplerChannel } from './channels/SamplerChannel'

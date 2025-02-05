@@ -1,4 +1,4 @@
-import { useSequenceStore } from '@/providers/store/sequenceStore'
+import { useSequenceStore } from '@/stores/sequenceStore'
 
 export function useTransport() {
   const transportState = useSequenceStore(state => state.playbackState)

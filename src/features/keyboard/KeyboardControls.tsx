@@ -1,4 +1,4 @@
-import { usePresetStore } from '@/providers/store/presetStore'
+import { usePresetStore } from '@/stores/presetStore'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
 export function KeyboardControls() {

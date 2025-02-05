@@ -1,7 +1,7 @@
 import { MetronomeIcon } from '@/components/icons/Metronome'
 import { toggleVariants } from '@/components/ui/toggle'
 import { cn } from '@/lib/utils'
-import { useSequenceStore } from '@/providers/store/sequenceStore'
+import { useSequenceStore } from '@/stores/sequenceStore'
 import { useEffect, useRef, useState } from 'react'
 import { getTransport, Loop, Synth, SynthOptions } from 'tone'
 import { RecursivePartial } from 'tone/build/esm/core/util/Interface'

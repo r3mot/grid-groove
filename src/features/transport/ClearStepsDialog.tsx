@@ -1,7 +1,7 @@
 import { TrashCanIcon } from '@/components/icons/TrashCan'
 import { toggleVariants } from '@/components/ui/toggle'
 import { WarningDialog } from '@/components/WarningDialog'
-import { useSequenceStore } from '@/providers/store/sequenceStore'
+import { useSequenceStore } from '@/stores/sequenceStore'
 
 import { useState } from 'react'
 import { cn } from '@/lib/utils'

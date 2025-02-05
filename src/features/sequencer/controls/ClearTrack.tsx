@@ -1,4 +1,4 @@
-import { useSequenceStore } from '@/providers/store/sequenceStore'
+import { useSequenceStore } from '@/stores/sequenceStore'
 import { Trash2Icon } from 'lucide-react'
 
 export function ClearTrack({ row }: { row: number }) {
