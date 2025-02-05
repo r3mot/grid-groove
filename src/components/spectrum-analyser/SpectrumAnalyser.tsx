@@ -3,6 +3,25 @@ import { clamp } from '@/lib/math'
 import { useCallback, useEffect, useRef } from 'react'
 import { FFT, getDestination } from 'tone'
 
+function drawRoundedTopRect(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  width: number,
+  height: number,
+  radius: number,
+) {
+  ctx.beginPath()
+  ctx.moveTo(x, y + height)
+  ctx.lineTo(x, y + radius)
+  ctx.quadraticCurveTo(x, y, x + radius, y)
+  ctx.lineTo(x + width - radius, y)
+  ctx.quadraticCurveTo(x + width, y, x + width, y + radius)
+  ctx.lineTo(x + width, y + height)
+  ctx.closePath()
+  ctx.fill()
+}
+
 interface SpectrumAnalyserProps {
   width?: number
   height?: number
@@ -23,7 +42,7 @@ export function SpectrumAnalyser({
   const { drawToCanvas, getOffscreenCanvas } = useOffscreenCanvas(width, height)
 
   const initializeFFT = useCallback(() => {
-    fftRef.current = new FFT(64)
+    fftRef.current = new FFT(128)
     getDestination().connect(fftRef.current)
   }, [])
 
@@ -39,7 +58,12 @@ export function SpectrumAnalyser({
     drawToCanvas((ctx, canvas) => {
       ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-      const barWidth = canvas.width / channelData.length
+      const channelData = fftRef
+        .current!.getValue()
+        .slice(0, fftRef.current!.getValue().length / 2)
+      const numBars = channelData.length
+      const barWidth = canvas.width / numBars
+      const spacing = barWidth * 0.1
 
       channelData.forEach((value, index) => {
         // Clamp the value between min and max db
@@ -58,7 +82,16 @@ export function SpectrumAnalyser({
 
         ctx.fillStyle = gradient
         ctx.beginPath()
-        ctx.roundRect(x, y, barWidth - 4, barHeight, 4)
+        ctx.moveTo(x, y + barHeight)
+
+        drawRoundedTopRect(
+          ctx,
+          x,
+          y,
+          Math.max(0, barWidth - spacing),
+          barHeight,
+          2,
+        )
         ctx.fill()
       })
     })
