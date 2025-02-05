@@ -71,7 +71,7 @@ export const usePresetStore = create<PresetStore>()(
           },
 
           loFi: {
-            volume: -12,
+            volume: -15,
             oscillator: { type: 'triangle' },
             envelope: {
               attack: 0.2,
