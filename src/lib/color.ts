@@ -1,21 +1,3 @@
-export interface RGB {
-  r: number
-  g: number
-  b: number
-}
-
-/**
- * Utility function to parse an RGB string into an RGB object.
- */
-export function parseRGB(color: string): RGB {
-  const match = color.match(/\d+/g)
-  if (!match || match.length !== 3) {
-    throw new Error(`Invalid RGB format: "${color}"`)
-  }
-  const [r, g, b] = match.map(Number)
-  return { r, g, b }
-}
-
 const generateDisplayColors = (rgb: string) => ({
   primary: `rgba(${rgb}, 1.0)`,
   muted: `rgba(${rgb}, 0.5)`,
@@ -43,7 +25,3 @@ const RGB_VALUES = [
 ]
 
 export const COLORS = RGB_VALUES.map(rgb => generateDisplayColors(rgb))
-
-export const COLOR_MAP = Object.fromEntries(
-  COLORS.map((color, index) => [index, color]),
-)
