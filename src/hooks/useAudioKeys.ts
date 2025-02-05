@@ -1,6 +1,6 @@
 import { KEYBOARD_LAYOUT } from '@/lib/constants'
 
-import { useCallback, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 
 const keys = Object.entries(KEYBOARD_LAYOUT)
 const darkKeys = keys.filter(([, note]) => note.includes('#'))
@@ -36,7 +36,7 @@ export function useAudioKeys() {
     [activeKeys, keyMap],
   )
 
-  const getActiveNotes = Array.from(activeKeys)
+  const getActiveNotes = useMemo(() => Array.from(activeKeys), [activeKeys])
 
   return {
     pressKey,
