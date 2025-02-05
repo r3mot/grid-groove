@@ -1,4 +1,4 @@
-import { DISPLAY_COLORS } from '@/lib/constants'
+import { COLORS } from '@/lib/color'
 import { Sample } from '@/types'
 
 // Get path and name of samples
@@ -21,10 +21,6 @@ export function createSamples(
     id: sample.name.toString(),
     name: sample.name,
     url: sample.path,
-    color: {
-      primary: DISPLAY_COLORS[i]?.primary || '#000',
-      muted: DISPLAY_COLORS[i]?.muted || '#333',
-      contrast: DISPLAY_COLORS[i]?.contrast || '#fff',
-    },
+    color: COLORS[i],
   }))
 }
