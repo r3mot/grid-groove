@@ -202,9 +202,16 @@ export const useSequenceStore = create<SequencerState>()(
         },
 
         updateSamplerColor: (sampleId, color) => {
+          const sample = useSampleStore
+            .getState()
+            .samples.find(s => s.id === sampleId)
+
           const samplers = get().samplers.map(sampler => {
             if (sampler.id === sampleId) {
               sampler.meta.color = color
+              if (sample) {
+                useSampleStore.getState().updateSample({ ...sample, color })
+              }
             }
             return sampler
           })
