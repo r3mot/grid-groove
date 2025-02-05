@@ -1,4 +1,4 @@
-import { useSequenceStore } from '@/providers/store/sequenceStore'
+import { useSequenceStore } from '@/stores/sequenceStore'
 import { TrackHeader } from './header/TrackHeader'
 import { cn } from '@/lib/utils'
 import { TrackSteps } from './steps/TrackSteps'

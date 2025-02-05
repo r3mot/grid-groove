@@ -6,7 +6,7 @@ import {
 } from '@/components/ui/popover'
 import { ColorPicker } from '@/components/color-picker/ColorPicker'
 import { RGB } from '@/lib/color'
-import { useSequenceStore } from '@/providers/store/sequenceStore'
+import { useSequenceStore } from '@/stores/sequenceStore'
 
 interface ColorPickerProps {
   trackId: string

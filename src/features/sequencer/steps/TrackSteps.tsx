@@ -1,4 +1,4 @@
-import { useSequenceStore } from '@/providers/store/sequenceStore'
+import { useSequenceStore } from '@/stores/sequenceStore'
 import { TrackStep } from './TrackStep'
 import { Sampler } from '@/features/core/Sampler'
 

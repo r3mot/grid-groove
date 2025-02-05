@@ -1,4 +1,4 @@
-import { useSequenceStore } from '@/providers/store/sequenceStore'
+import { useSequenceStore } from '@/stores/sequenceStore'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { DisplayMode } from '@/types'
 

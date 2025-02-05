@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, it, expect } from 'vitest'
-import { useSequenceStore } from '@/providers/store/sequenceStore'
+import { useSequenceStore } from '@/stores/sequenceStore'
 import { ClearTrack } from './ClearTrack'
 import { createStepsArray, createUniformArray } from '@/lib/test'
 

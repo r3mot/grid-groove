@@ -1,6 +1,6 @@
 import { clamp } from '@/lib/math'
 import { cn } from '@/lib/utils'
-import { useSequenceStore } from '@/providers/store/sequenceStore'
+import { useSequenceStore } from '@/stores/sequenceStore'
 import { useCallback, useEffect, useState } from 'react'
 
 export function TransportBPM() {

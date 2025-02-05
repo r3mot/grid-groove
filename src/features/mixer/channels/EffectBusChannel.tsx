@@ -1,4 +1,4 @@
-import { useSequenceStore } from '@/providers/store/sequenceStore'
+import { useSequenceStore } from '@/stores/sequenceStore'
 import { ChannelPan } from '../controls/ChannelPan'
 import { ChannelFader } from '../controls/ChannelFader'
 import { ChannelMeter } from '../controls/ChannelMeter'
