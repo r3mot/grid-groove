@@ -13,7 +13,7 @@ export function TrackHeader({ sampler }: TrackHeaderProps) {
   return (
     <div className='relative flex items-center justify-between px-2 py-1 pl-4'>
       <div className='flex items-center gap-2'>
-        <TrackColorPicker trackId={id} currentColor={color.primary} />
+        <TrackColorPicker trackId={id} currentColor={color} />
         <span className='text-sm select-none'>{name}</span>
       </div>
       <div className='space-x-1'>
