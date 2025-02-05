@@ -1,8 +1,7 @@
-import { KeyboardContext } from '@/providers/context/KeyboardContext'
-import { useCallback, useContext } from 'react'
+import { useCallback, useMemo } from 'react'
 
 export function useKeyboardMap(keyToNote: Record<string, string>) {
-  const { activeNotes } = useContext(KeyboardContext)
+  const activeNotes = useMemo(() => new Set<string>(), [])
 
   const pressKey = useCallback(
     (key: string): string | null => {

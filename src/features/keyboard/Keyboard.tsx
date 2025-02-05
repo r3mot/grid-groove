@@ -1,26 +1,28 @@
-import { KeyboardContext } from '@/providers/context/KeyboardContext'
-import { KeyboardProvider } from '@/providers/context/KeyboardProvider'
 import { useKeyboardMap } from '@/hooks/useKeyboardMap'
-import { useContext, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { LightKey, DarkKey } from './KeyboardKey'
 import { KeyboardControls } from './KeyboardControls'
 import { getContext } from 'tone'
+import { useSynthesizer } from '@/hooks/useSynthesizer'
+import { Synthesizer } from '../core/Synthesizer'
+import { KEYBOARD_LAYOUT } from '@/lib/constants'
 
 export function Keyboard() {
-  return (
-    <KeyboardProvider>
-      <KeyboardInternal />
-    </KeyboardProvider>
-  )
+  const synth = useSynthesizer()
+  return <KeyboardInternal synth={synth} />
 }
 
-function KeyboardInternal() {
-  const { keyMap, polySynthRef } = useContext(KeyboardContext)
-  const { pressKey, releaseKey, getActiveNotes } = useKeyboardMap(keyMap)
+function KeyboardInternal({
+  synth,
+}: {
+  synth: React.MutableRefObject<Synthesizer | undefined>
+}) {
+  const { pressKey, releaseKey, getActiveNotes } =
+    useKeyboardMap(KEYBOARD_LAYOUT)
 
   const [visualNotes, setVisualNotes] = useState<string[]>([])
   const activeNotes = useRef(new Set<string>()).current
-  const keyboardKeys = Object.entries(keyMap)
+  const keyboardKeys = Object.entries(KEYBOARD_LAYOUT)
 
   const lightKeys = keyboardKeys.filter(([, note]) => !note.includes('#'))
   const darkKeys = keyboardKeys.filter(([, note]) => note.includes('#'))
@@ -36,7 +38,7 @@ function KeyboardInternal() {
       const note = pressKey(e.key)
       if (note && !activeNotes.has(note)) {
         activeNotes.add(note)
-        polySynthRef.current?.triggerAttack(note, (getContext().lookAhead = 0))
+        synth.current?.triggerAttack(note, (getContext().lookAhead = 0))
         setVisualNotes(getActiveNotes())
       }
     }
@@ -44,7 +46,7 @@ function KeyboardInternal() {
       const note = releaseKey(e.key)
       if (note && activeNotes.has(note)) {
         activeNotes.delete(note)
-        polySynthRef.current?.triggerRelease(note, '+0.1')
+        synth.current?.triggerRelease(note, '+0.1')
         setVisualNotes(getActiveNotes())
       }
     }
@@ -56,7 +58,7 @@ function KeyboardInternal() {
       document.removeEventListener('keydown', keyDown)
       document.removeEventListener('keyup', keyUp)
     }
-  }, [activeNotes, getActiveNotes, polySynthRef, pressKey, releaseKey])
+  }, [activeNotes, getActiveNotes, synth, pressKey, releaseKey])
 
   return (
     <article className='flex items-center w-full max-w-5xl p-2 px-8 border rounded-md select-none border-left bg-card'>
