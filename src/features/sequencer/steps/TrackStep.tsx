@@ -12,7 +12,7 @@ interface TrackStepProps {
 export function TrackStep({
   row,
   column,
-  displayColor: { primary, muted },
+  displayColor,
   isActive,
   onStepChange,
 }: TrackStepProps) {
@@ -38,7 +38,7 @@ export function TrackStep({
       <div
         style={{
           background: isActive
-            ? `radial-gradient(circle, ${primary} 0%, ${muted} 100%)`
+            ? `radial-gradient(circle, ${displayColor.primary} 0%, ${displayColor.muted} 100%)`
             : '',
         }}
         className='absolute inset-0'
