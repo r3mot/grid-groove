@@ -1,34 +1,47 @@
-# Grid Groovin
+# 🎵 Grid Groovin  
 
-> An interactive Web Audio Step Sequencer built with Tone.js. Create and control
-> music with adjustable step counts, and BPM settings. Features a full mixing
-> board with volume faders for precise sound control. Includes an on-screen
-> keyboard (playable with your physical keyboard) offering 4 preset synth
-> options.
+> **An interactive Web Audio Step Sequencer powered by Tone.js**  
+> Create and control music with adjustable step counts, BPM settings, and a full-featured mixing board with volume faders.  
+> Includes an **on-screen keyboard** and offers **four preset synth options**.  
 
 <img src="https://github.com/user-attachments/assets/ffc24f59-1858-4fcd-854e-6690464bf377" width="800" height="500" />
 
-## Getting Started
+---
 
-```shell
+## 🚀 Getting Started  
+
+Follow these steps to clone, install dependencies, and start the development server.  
+
+### **Clone the Repository**  
+```sh
 git clone https://github.com/r3mot/grid-groove
+cd grid-groove
 ```
 
-```shell
+### **Install Dependencies**  
+```sh
 npm install
 ```
 
-```shell
- npm run dev
+### **Start the Development Server**  
+```sh
+npm run dev
 ```
 
-## Replacing Samples
+Your dev server will be available at `http://localhost:3000`.  
 
-Replace the audio files in the `public` directory. The name of the file is used
-to name the track. You'll then replace the sample paths found below:
+---
 
-```javascript
-// /providers/store/sampleStore.ts
+## 🎛️ Customizing Samples  
+
+You can replace the default drum samples by updating the audio files in the `public/audio` directory.  
+Each sample's **filename** is used as the track name in the UI.  
+
+### **Updating Sample Paths**  
+To change the sample paths used in the sequencer, update the file located at:  
+
+```js
+// store/sampleStore.ts
 
 const samplePaths = [
   '/audio/clhat.wav',
@@ -39,29 +52,48 @@ const samplePaths = [
   '/audio/snare2.wav',
   '/audio/snap.wav',
   '/audio/ride.wav',
-]
+];
 ```
 
-The deafult colors are stored in an object and mapped to the samples. These are
-persisted so they will only be applied once. You can change them here
+Replace the file paths with the new samples you’ve added.  
 
-```javascript
-// /lib/constants.ts
-export const DISPLAY_COLORS = [
-  { r: 51, g: 255, b: 51 }, // Green
-  { r: 102, g: 255, b: 255 }, // Cyan
-  { r: 204, g: 153, b: 255 }, // Purple
-  { r: 153, g: 204, b: 255 }, // Light Blue
-  { r: 255, g: 204, b: 153 }, // Orange
-  { r: 255, g: 102, b: 102 }, // Red
-  { r: 255, g: 255, b: 102 }, // Yellow
-  { r: 255, g: 102, b: 255 }, // Pink
-].map(({ r, g, b }) => ({
-  primary: rgba(r, g, b, 1.0),
-  muted: rgba(r, g, b, 0.5),
-  contrast: rgba(r, g, b, 0.2),
-}))
+---
+
+## 🎨 Customizing Colors  
+
+The default colors are mapped to each sample and persist across sessions.  
+You can modify the colors by updating the `RGB_VALUES` array in [./lib/color.ts](https://github.com/r3mot/grid-groove/blob/main/src/lib/color.ts).  
+
+### **Updating Colors**  
+Open the file and modify the RGB values:  
+
+```js
+// lib/color.ts
+
+const RGB_VALUES = [
+  '239,68,68',  // Red
+  '249,115,22', // Orange
+  '245,158,11', // Amber
+  '234,179,8',  // Yellow
+  '132,204,22', // Lime
+  '34,197,94',  // Green
+  '16,185,129', // Emerald
+  '20,184,166', // Teal
+  '6,182,212',  // Cyan
+  '14,165,233', // Sky
+  '59,130,246', // Blue
+  '99,102,241', // Indigo
+  '139,92,246', // Violet
+  '168,85,247', // Purple
+  '217,70,239', // Fuchsia
+  '236,72,153', // Pink
+  '244,63,94',  // Rose
+];
 ```
+
+Once updated, your color changes will take effect on the next reload.
+
+---
 
 ## License
 
