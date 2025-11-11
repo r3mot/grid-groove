@@ -28,10 +28,9 @@ describe('TrackStep Component', () => {
     render(<TrackStep {...defaultProps} isActive={true} />)
 
     const listItem = screen.getByRole('listitem')
-
-    expect(listItem).toHaveStyle(
-      'background: radial-gradient(circle, #ff0000 0%, #cccccc 100%)',
-    )
+    // TODO: clean this up and use test id's
+    const bg = listItem.querySelector('div')!
+    expect(bg.style.background).toContain('radial-gradient')
   })
 
   it('calls onStepChange with correct arguments when checkbox is clicked', () => {

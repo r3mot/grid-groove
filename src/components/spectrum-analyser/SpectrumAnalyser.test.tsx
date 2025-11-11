@@ -5,22 +5,23 @@ import { FFT, getDestination } from 'tone'
 vi.mock('tone', async () => {
   const actual = await vi.importActual<typeof import('tone')>('tone')
 
+  const MockFFT = vi.fn().mockImplementation(function () {
+    return {
+      getValue: vi.fn(() => new Array(64).fill(-50)),
+      dispose: vi.fn(function (this: { disposed: boolean }) {
+        this.disposed = true
+      }),
+      disposed: false,
+    }
+  })
+
   return {
     ...actual,
     getDestination: vi.fn(() => ({
       connect: vi.fn(),
       disconnect: vi.fn(),
     })),
-    FFT: vi.fn().mockImplementation(() => {
-      const fftMock = {
-        getValue: vi.fn(() => new Array(64).fill(-50)),
-        dispose: vi.fn(function (this: { disposed: boolean }) {
-          this.disposed = true
-        }),
-        disposed: false,
-      }
-      return fftMock
-    }),
+    FFT: MockFFT,
   }
 })
 
