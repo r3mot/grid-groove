@@ -7,16 +7,17 @@ import { Channel } from 'tone'
 vi.mock('tone', async () => {
   const actual = await vi.importActual<typeof import('tone')>('tone')
 
+  class MockChannel {
+    mute = false
+    volume = { value: 0 }
+  }
+
   return {
     ...actual,
-    Channel: vi.fn().mockImplementation(() => ({
-      mute: false,
-      volume: { value: 0 },
-    })),
+    Channel: MockChannel,
   }
 })
 
-// Mock Icons
 vi.mock('@/components/icons/Speaker', () => ({
   SpeakerIcon: () => <span data-testid='speaker-icon'>SpeakerOn</span>,
 }))
@@ -32,8 +33,6 @@ describe('MuteChannel Component', () => {
 
   beforeEach(() => {
     vi.clearAllMocks()
-
-    // Create a fresh mock Channel for each test
     mockChannel = new Channel()
   })
 
@@ -60,22 +59,18 @@ describe('MuteChannel Component', () => {
 
     const button = screen.getByRole('button')
 
-    // Initial state: unmuted
     expect(button).toHaveAttribute('data-state', 'off')
     expect(mockChannel.mute).toBe(false)
 
-    // Click to mute
     fireEvent.click(button)
     expect(mockChannel.mute).toBe(true)
     expect(button).toHaveAttribute('data-state', 'on')
 
-    // Click to unmute
     fireEvent.click(button)
     expect(mockChannel.mute).toBe(false)
     expect(button).toHaveAttribute('data-state', 'off')
   })
 
-  // TODO: Implement this test
   it('syncs muted state with volume.value as -Infinity', () => {
     mockChannel.volume.value = -Infinity
 
@@ -92,7 +87,6 @@ describe('MuteChannel Component', () => {
     const { unmount } = render(<MuteChannel channel={mockChannel} />)
     unmount()
 
-    // Ensure there are no pending timers
     expect(vi.getTimerCount()).toBe(0)
     vi.useRealTimers()
   })
