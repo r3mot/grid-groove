@@ -66,7 +66,7 @@ describe('RotaryKnob', () => {
       expect.any(Function),
     )
 
-    unmount() // Simulate component unmount
+    unmount()
 
     expect(removeEventListenerSpy).toHaveBeenCalledWith(
       'mousemove',
@@ -93,7 +93,7 @@ describe('RotaryKnob', () => {
 
     act(() => {
       fireEvent.mouseDown(knob, { clientY: 200 })
-      fireEvent.mouseMove(window, { clientY: 160 }) // Drag 40px upwards
+      fireEvent.mouseMove(window, { clientY: 160 })
       fireEvent.mouseUp(window)
     })
 
@@ -102,7 +102,6 @@ describe('RotaryKnob', () => {
     const expectedValue = clamp(50 + dv, 0, 100)
     const expectedRotation = valueToAngle(expectedValue, 0, 100)
 
-    // Extract actual rotation angle from the DOM
     const appliedTransform = knob.style.transform
     const angleMatch = appliedTransform.match(/rotate\(([-\d.]+)deg\)/)
     const actualAngle = angleMatch ? parseFloat(angleMatch[1]) : null

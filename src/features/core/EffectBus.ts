@@ -8,12 +8,11 @@ export class EffectBus {
   private chorus: Chorus
   private reverbChannel: Channel
   private chorusChannel: Channel
-  private busChannel: Channel // Master output channel
+  private busChannel: Channel
   private connectedSources: Map<Channel, Gain<'decibels'>[]>
   private peakMeter: Meter
 
   constructor() {
-    // Initialize effects
     this.reverb = new Reverb(3)
     this.chorus = new Chorus({ wet: 1 }).start()
 
@@ -22,24 +21,19 @@ export class EffectBus {
 
     this.busChannel = new Channel({
       volume: DECIBEL_RANGE.minDb,
-      pan: 0, // Default center pan
+      pan: 0,
       channelCount: 2,
     }).toDestination()
 
-    // Meter for analyzing the output
     this.peakMeter = new Meter({ channelCount: 2 })
 
-    // Chain effect channels into master channel
     this.reverbChannel.chain(this.reverb, this.busChannel)
     this.chorusChannel.chain(this.chorus, this.busChannel)
-
     this.busChannel.chain(this.peakMeter)
 
-    // Track connected sources
     this.connectedSources = new Map()
   }
 
-  /** Getters */
   get meter() {
     return this.peakMeter
   }
@@ -56,7 +50,6 @@ export class EffectBus {
     return Array.from(this.connectedSources.keys())
   }
 
-  /** Global Setters */
   set volume(value: number) {
     this.busChannel.volume.value = value
   }
@@ -65,7 +58,6 @@ export class EffectBus {
     this.busChannel.pan.value = value
   }
 
-  /** Effect Toggles */
   toggleReverb() {
     this.reverb.wet.value = this.reverb.wet.value < 1 ? 1 : 0
   }
@@ -74,7 +66,6 @@ export class EffectBus {
     this.chorus.wet.value = this.chorus.wet.value < 1 ? 1 : 0
   }
 
-  /** Routing Logic */
   route(source: Channel) {
     if (!this.connectedSources.has(source)) {
       const sourceNodes = [source.send('reverb'), source.send('chorus')]

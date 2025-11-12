@@ -31,15 +31,15 @@ export function Fader({
         style={{
           height: `${height}px`,
         }}
-        aria-valuemin={fader.minGain} // Gain scale min
-        aria-valuemax={fader.maxGain} // Gain scale max
+        aria-valuemin={fader.minGain}
+        aria-valuemax={fader.maxGain}
         aria-valuenow={gainValue}
         orientation='vertical'
         className='w-5'
         min={fader.minGain}
         max={fader.maxGain}
         step={step}
-        value={[gainValue]} // Pass gain value
+        value={[gainValue]}
         onValueChange={fader.handleValueChange}
       />
     </div>

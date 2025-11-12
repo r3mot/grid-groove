@@ -65,7 +65,6 @@ describe('SoloChannel Component with Zustand Store', () => {
 
     const buttons = screen.getAllByRole('button')
 
-    // Verify initial states
     expect(buttons[0]).toHaveAttribute('data-state', 'on') // channel-1
     expect(buttons[1]).toHaveAttribute('data-state', 'on') // channel-2
 

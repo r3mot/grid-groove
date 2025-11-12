@@ -1,7 +1,6 @@
 import { COLORS } from '@/lib/color'
 import { Sample } from '@/types'
 
-// Get path and name of samples
 export function getPathAndName(
   samples: string[],
 ): { path: string; name: string }[] {
@@ -13,7 +12,6 @@ export function getPathAndName(
   })
 }
 
-// Create sample objects
 export function createSamples(
   samples: { path: string; name: string }[],
 ): Sample[] {

@@ -24,20 +24,16 @@ describe('ClearTrack Component with Zustand Store', () => {
       stepCount: columns,
     })
 
-    // Render ClearTrack for row 1
     render(<ClearTrack row={1} />)
 
     const button = screen.getByRole('button')
     await userEvent.click(button)
 
-    // Access updated store state
     const { steps, velocities } = useSequenceStore.getState()
 
-    // Verify only row 1 is cleared
     expect(steps[1]).toEqual(Array(columns).fill(false))
     expect(velocities[1]).toEqual(Array(columns).fill(1))
 
-    // Verify other rows remain unchanged by comparing to initialSteps and initialVelocities
     expect(steps[0]).toEqual(initialSteps[0])
     expect(steps[2]).toEqual(initialSteps[2])
     expect(velocities[0]).toEqual(initialVelocities[0])
