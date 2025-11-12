@@ -20,22 +20,31 @@ export function ColorPicker({ currentColor, onSavedColor }: ColorPickerProps) {
   }
 
   return (
-    <div className='grid gap-4'>
-      <h4 className='font-medium leading-none'>Select a color</h4>
-      <div className='grid grid-cols-5 gap-2'>
+    <div className='space-y-4'>
+      <h4 className='text-sm font-medium'>Select a color</h4>
+
+      <div className='grid grid-cols-6 gap-2'>
         {COLORS.map(color => {
-          const isSelectedColor = selectedColor.primary === color.primary
+          const isSelected = selectedColor.primary === color.primary
+
           return (
             <Button
+              key={color.primary}
               data-testid={color.primary}
+              variant='outline'
+              size='sm'
               className={cn(
-                'w-full h-8 p-0 border-2',
-                isSelectedColor ? 'border-gray-100' : 'border-transparent',
+                'relative h-8 w-full p-0 border rounded-md',
+                isSelected
+                  ? 'border-primary ring-2 ring-primary/50'
+                  : 'border-muted',
               )}
               style={{ backgroundColor: color.primary }}
               onClick={() => setSelectedColor(color)}
             >
-              {isSelectedColor && <Check className='w-3 h-3 text-white' />}
+              {isSelected && (
+                <Check className='w-3 h-3 text-white drop-shadow' />
+              )}
             </Button>
           )
         })}
@@ -43,7 +52,7 @@ export function ColorPicker({ currentColor, onSavedColor }: ColorPickerProps) {
 
       <Button
         onClick={handleSave}
-        className='w-full'
+        className='w-full bg-accent text-foreground hover:bg-accent/70 cursor-pointer'
         data-testid='save-color-btn'
       >
         Save
