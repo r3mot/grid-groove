@@ -67,7 +67,7 @@ export function RotaryKnob({
       isMouseDragging.current = true
       initialMouseY.current = e.clientY
       initialValueRef.current = value
-      document.body.classList.add('select-none') // Prevent text selection while dragging
+      document.body.classList.add('select-none')
     },
     [value],
   )

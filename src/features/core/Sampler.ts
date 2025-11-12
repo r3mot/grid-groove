@@ -8,7 +8,7 @@ interface SamplerOptions {
   sampleId: string
   sampleUrl: string
   sampleName: string
-  sampleColor: DisplayColor // Optional sample color
+  sampleColor: DisplayColor
   mainBus: MainBus
   position: number
 }
@@ -17,7 +17,7 @@ interface SampleMetadata {
   id: string
   name: string
   url: string
-  color: DisplayColor // Extendable for other metadata like tags, categories, etc.
+  color: DisplayColor
   position: number
 }
 
@@ -31,7 +31,6 @@ export class Sampler extends ToneSampler {
   private soloed: boolean = false
   private muted: boolean = false
 
-  /** Metadata for the sample */
   private readonly metadata: SampleMetadata
 
   constructor(options: SamplerOptions) {
@@ -40,7 +39,6 @@ export class Sampler extends ToneSampler {
       onerror: () => console.error('Cannot load sample:', options.sampleUrl),
     })
 
-    // Initialize metadata
     this.metadata = {
       id: options.sampleId,
       name: options.sampleName,
@@ -57,12 +55,10 @@ export class Sampler extends ToneSampler {
       volume: DECIBEL_RANGE.defaultDb,
     })
 
-    // Connect signal chain
     this.samplerChannel.chain(this.peakMeter, this.mainBus)
     this.connect(this.samplerChannel)
   }
 
-  /** Getters */
   get id(): string {
     return this.metadata.id
   }
@@ -99,7 +95,6 @@ export class Sampler extends ToneSampler {
     return this.metadata
   }
 
-  /** Setters */
   set pan(value: number) {
     this.samplerChannel.pan.value = value
   }

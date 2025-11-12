@@ -15,12 +15,10 @@ import { devtools, persist } from 'zustand/middleware'
 import { useSampleStore } from './sampleStore'
 
 interface SequencerState {
-  // Transport State
   playbackState: PlaybackState
   playbackBPM: number
   isPlaying: boolean
 
-  // Sequence State
   stepCount: StepCount
   subdivision: Subdivision
   displayMode: DisplayMode
@@ -37,12 +35,10 @@ interface SequencerState {
   soloChannelIds: Set<string>
   isClearWarningRead: boolean
 
-  // Transport Actions
   setPlaybackState: (state: PlaybackState) => void
   setPlaybackBPM: (bpm: number) => void
   togglePlayback: () => void
 
-  // Sequence Actions
   setStepCount: (stepCount: StepCount) => void
   setSubdivision: (subdivision: Subdivision) => void
   setDisplayMode: (displayMode: DisplayMode) => void
@@ -64,12 +60,10 @@ export const useSequenceStore = create<SequencerState>()(
   devtools(
     persist(
       (set, get) => ({
-        // Transport State
         playbackState: 'stopped',
         playbackBPM: 120,
         isPlaying: false,
 
-        // Sequence State
         stepCount: 16 as StepCount,
         subdivision: '16n' as Subdivision,
         displayMode: 'step' as DisplayMode,
@@ -86,15 +80,8 @@ export const useSequenceStore = create<SequencerState>()(
         soloChannelIds: new Set<string>(),
         isClearWarningRead: false,
 
-        // -------------------------------
-        // Clear Warning Actions
-        // -------------------------------
-
         setClearWarningRead: () => set({ isClearWarningRead: true }),
 
-        // -------------------------------
-        // Transport Actions
-        // -------------------------------
         setPlaybackState: state => {
           const transport = getTransport()
           if (state === 'started') transport.start()
@@ -125,9 +112,6 @@ export const useSequenceStore = create<SequencerState>()(
           }
         },
 
-        // -------------------------------
-        // Sequence Actions
-        // -------------------------------
         setStepCount: stepCount => {
           const { steps, velocities } = get()
           const _steps = steps.map(row =>
@@ -257,12 +241,6 @@ export const useSequenceStore = create<SequencerState>()(
     ),
   ),
 )
-
-// Helper functions remain the same
-
-// --------------------------------------------------------
-//                   HELPER FUNCTIONS
-// --------------------------------------------------------
 
 type SSet = (partial: Partial<SequencerState>) => void
 type SGet = () => SequencerState

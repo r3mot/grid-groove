@@ -1,8 +1,6 @@
-// Utility function to generate rgba strings
 const rgba = (r: number, g: number, b: number, a: number) =>
   `rgba(${r},${g},${b},${a})`
 
-// Base colors with r, g, b components
 export const DISPLAY_COLORS = [
   { r: 51, g: 255, b: 51 }, // Green
   { r: 102, g: 255, b: 255 }, // Cyan

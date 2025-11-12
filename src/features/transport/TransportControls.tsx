@@ -25,8 +25,6 @@ export function TransportControls() {
       <button onClick={stop} className={cn(styles)}>
         <SquareIcon fill='currentColor' />
       </button>
-
-      {/* <ClearSteps /> */}
     </div>
   )
 }

@@ -3,7 +3,6 @@ import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { MuteChannel } from './MuteChannel'
 import { Channel } from 'tone'
 
-// Mock Tone.js
 vi.mock('tone', async () => {
   const actual = await vi.importActual<typeof import('tone')>('tone')
 

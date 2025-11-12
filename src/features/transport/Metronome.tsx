@@ -56,7 +56,7 @@ export function Metronome() {
 
   useEffect(() => {
     if (isPlaying && loop.current) {
-      loop.current.interval = `${60 / playbackBPM}s` // Adjust interval on BPM change
+      loop.current.interval = `${60 / playbackBPM}s`
     }
   }, [playbackBPM, isPlaying])
 
