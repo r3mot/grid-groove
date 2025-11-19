@@ -1,6 +1,6 @@
 import { cn } from '@/lib/utils'
 import { Synthesizer } from '../core/Synthesizer'
-import React, { useEffect } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { useAudioKeys } from '@/hooks/useAudioKeys'
 import { getContext } from 'tone'
 
@@ -17,29 +17,42 @@ const getDarkKeyPosition = (note: string, lightKeys: [string, string][]) => {
 export function KeyboardKeys({ synth }: KeyboardKeysProps) {
   const { pressKey, releaseKey, activeKeys, keys } = useAudioKeys()
 
+  const triggerNote = useCallback(
+    (note: string) => {
+      synth.current?.triggerAttack(note, (getContext().lookAhead = 0))
+    },
+    [synth],
+  )
+
+  const releaseNote = useCallback(
+    (note: string) => {
+      synth.current?.triggerRelease(note, '+0.1')
+    },
+    [synth],
+  )
+
   useEffect(() => {
-    const keyDown = (e: KeyboardEvent) => {
+    const handleKeyDown = (e: KeyboardEvent) => {
       const note = pressKey(e.key)
-      if (note) synth.current?.triggerAttack(note, (getContext().lookAhead = 0))
+      if (note) triggerNote(note)
     }
 
-    const keyUp = (e: KeyboardEvent) => {
+    const handleKeyUp = (e: KeyboardEvent) => {
       const note = releaseKey(e.key)
-      if (note) synth.current?.triggerRelease(note, '+0.1')
+      if (note) releaseNote(note)
     }
 
-    document.addEventListener('keydown', keyDown, { passive: true })
-    document.addEventListener('keyup', keyUp, { passive: true })
+    document.addEventListener('keydown', handleKeyDown, { passive: true })
+    document.addEventListener('keyup', handleKeyUp, { passive: true })
 
     return () => {
-      document.removeEventListener('keydown', keyDown)
-      document.removeEventListener('keyup', keyUp)
+      document.removeEventListener('keydown', handleKeyDown)
+      document.removeEventListener('keyup', handleKeyUp)
     }
-  }, [pressKey, releaseKey, synth])
+  }, [pressKey, releaseKey, triggerNote, releaseNote])
 
   return (
     <div className='relative max-w-3xl mx-auto overflow-hidden rounded-lg shadow-inner min-h-60'>
-      {/* Light Keys */}
       <div className='absolute inset-0 flex'>
         {keys.lightKeys.map(([key, note]) => (
           <button
@@ -51,8 +64,11 @@ export function KeyboardKeys({ synth }: KeyboardKeysProps) {
               'bg-stone-100 text-foreground transition-all duration-200 ease-in-out',
               activeKeys.has(note)
                 ? 'bg-stone-400'
-                : 'shadow-md hover:shadow-lg',
+                : 'shadow-md hover:bg-stone-400',
             )}
+            onMouseDown={() => triggerNote(note)}
+            onMouseUp={() => releaseNote(note)}
+            onMouseLeave={() => releaseNote(note)}
           >
             <span className='text-xs font-semibold text-black'>{note}</span>
             <span className='text-xs text-black'>({key})</span>
@@ -60,7 +76,6 @@ export function KeyboardKeys({ synth }: KeyboardKeysProps) {
         ))}
       </div>
 
-      {/* Dark Keys */}
       <div className='absolute inset-0 left-1.5 pointer-events-none'>
         {keys.darkKeys.map(([key, note]) => (
           <button
@@ -69,10 +84,12 @@ export function KeyboardKeys({ synth }: KeyboardKeysProps) {
             aria-label={`Dark key for note ${note} mapped to ${key}`}
             className={cn(
               'pointer-events-auto bg-black absolute w-[8%] h-3/5 rounded-b-md flex flex-col justify-end items-center pb-2 z-10 transition-all',
-              activeKeys.has(note) && 'bg-stone-900',
+              activeKeys.has(note) ? 'bg-stone-900' : 'hover:bg-stone-900',
             )}
             style={{ left: getDarkKeyPosition(note, keys.lightKeys) }}
-            onClick={() => console.log(`Black key ${key} clicked`)}
+            onMouseDown={() => triggerNote(note)}
+            onMouseUp={() => releaseNote(note)}
+            onMouseLeave={() => releaseNote(note)}
           >
             <span className='text-xs font-semibold text-white'>{note}</span>
             <span className='text-xs text-gray-400'>({key})</span>
