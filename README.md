@@ -1,6 +1,6 @@
 # 🎵 Grid Groovin
 
-> **An interactive Web Audio Step Sequencer powered by Tone.js**  
+> **An interactive Web Audio Step Sequencer powered by Tone.js**
 
 <img src="https://github.com/user-attachments/assets/ffc24f59-1858-4fcd-854e-6690464bf377" width="800" height="500" />
 
@@ -39,7 +39,6 @@ Your dev server will be available at `http://localhost:5173`.
 You can replace the default drum samples by updating the audio files in the
 `public/audio` directory.  
 Each sample's **filename** is used as the track name in the UI.
-
 
 To change the sample paths used in the sequencer, update the file located at:
 

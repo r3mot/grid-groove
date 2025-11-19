@@ -8,7 +8,7 @@ export function useSynthesizer() {
     useShallow(presetSelector),
   )
 
-  const synth = useRef<Synthesizer | undefined>()
+  const synth = useRef<Synthesizer | undefined>(undefined)
 
   useEffect(() => {
     if (!synth.current) {
