@@ -1,10 +1,31 @@
 {
   "name": "grid-groovin",
   "displayName": "Grid Groovin - Step sequencer for the web",
-  "author": {
-    "name": "Corey Mendrella"
+  "description": "A modern web-based step sequencer with a piano keyboard, mixer, per-track effects, velocity control, pattern editing, and built-in sound presets.",
+  "keywords": [
+    "Web Audio",
+    "Tone.js",
+    "Step Sequencer",
+    "Beat Maker",
+    "Browser Audio",
+    "DSP",
+    "Interactive Music",
+    "Mixer",
+    "TypeScript",
+    "React",
+    "Piano",
+    "browser-audio"
+  ],
+  "author": "Corey Mendrella (https://www.coreymendrella.dev/)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/r3mot/grid-groove.git"
   },
-  "version": "1.2.0",
+  "bugs": {
+    "url": "https://github.com/r3mot/grid-groove/issues"
+  },
+  "homepage": "https://github.com/r3mot/grid-groove#readme",
+  "version": "1.2.1",
   "type": "module",
   "license": "MIT",
   "scripts": {
