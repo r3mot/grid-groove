@@ -28,7 +28,7 @@ export function TrackColorPicker({
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger
-        style={{ backgroundColor: currentColor.primary }}
+        style={{ backgroundColor: currentColor }}
         className='w-4 h-4 border rounded-full border-foreground/10'
         aria-label='Change color'
       />

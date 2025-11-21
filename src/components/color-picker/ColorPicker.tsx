@@ -25,12 +25,12 @@ export function ColorPicker({ currentColor, onSavedColor }: ColorPickerProps) {
 
       <div className='grid grid-cols-6 gap-2'>
         {COLORS.map(color => {
-          const isSelected = selectedColor.primary === color.primary
+          const isSelected = selectedColor === color
 
           return (
             <Button
-              key={color.primary}
-              data-testid={color.primary}
+              key={color}
+              data-testid={color}
               variant='outline'
               size='sm'
               className={cn(
@@ -39,7 +39,7 @@ export function ColorPicker({ currentColor, onSavedColor }: ColorPickerProps) {
                   ? 'border-primary ring-2 ring-primary/50'
                   : 'border-muted',
               )}
-              style={{ backgroundColor: color.primary }}
+              style={{ backgroundColor: color }}
               onClick={() => setSelectedColor(color)}
             >
               {isSelected && (

@@ -59,7 +59,7 @@ export function TrackVelocity({
     <button
       data-group={group}
       style={{
-        backgroundColor: activeStep ? displayColor.muted : '',
+        backgroundColor: activeStep ? displayColor : '',
       }}
       className={cn(
         'w-full h-full border relative overflow-hidden hover:border-red-500',
@@ -79,7 +79,7 @@ export function TrackVelocity({
           })}
           style={{
             height: `${velocity * 100}%`,
-            backgroundColor: activeStep ? displayColor.muted : '',
+            backgroundColor: activeStep ? displayColor : '',
           }}
         />
       </div>

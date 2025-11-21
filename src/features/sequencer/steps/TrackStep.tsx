@@ -1,4 +1,3 @@
-import { radialGradient } from '@/lib/color'
 import { cn, groupByColumn } from '@/lib/utils'
 import { DisplayColor } from '@/types'
 
@@ -38,7 +37,7 @@ export function TrackStep({
     >
       <div
         style={{
-          background: isActive ? radialGradient(displayColor) : '',
+          background: isActive ? displayColor : '',
         }}
         className='absolute inset-0'
       />
