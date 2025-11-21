@@ -46,29 +46,19 @@
   --shadow-inset-bottom: inset 3px -3px 6px 0px rgba(0, 0, 0, 0.7);
 }
 
-
 .velocity {
-  --velocity-bg: color-mix(
-    in srgb,
-    var(--track-color) 10%,
-    black 90%
-  );
-  --velocity-fill: color-mix(
-    in srgb,
-    var(--track-color) 70%,
-    white 10%
-  );
+  --velocity-bg: color-mix(in srgb, var(--track-color) 10%, black 90%);
+  --velocity-fill: color-mix(in srgb, var(--track-color) 70%, white 10%);
 }
 
-
-  .step {
-      --step-active-darken: 25%;
-    --step-active: color-mix(
-      in srgb,
-      var(--track-color) calc(100% - var(--step-active-darken)),
-      black var(--step-active-darken)
-    );
-  }
+.step {
+  --step-active-darken: 25%;
+  --step-active: color-mix(
+    in srgb,
+    var(--track-color) calc(100% - var(--step-active-darken)),
+    black var(--step-active-darken)
+  );
+}
 
 /*
   The default border color has changed to `currentcolor` in Tailwind CSS v4,
