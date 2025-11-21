@@ -46,6 +46,21 @@
   --shadow-inset-bottom: inset 3px -3px 6px 0px rgba(0, 0, 0, 0.7);
 }
 
+
+.velocity {
+  --velocity-bg: color-mix(
+    in srgb,
+    var(--track-color) 10%,
+    black 90%
+  );
+  --velocity-fill: color-mix(
+    in srgb,
+    var(--track-color) 70%,
+    white 10%
+  );
+}
+
+
 /*
   The default border color has changed to `currentcolor` in Tailwind CSS v4,
   so we've added these compatibility styles to make sure everything still
