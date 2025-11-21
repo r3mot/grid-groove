@@ -24,14 +24,12 @@ describe('TrackStep Component', () => {
     expect(listItem).toHaveStyle('background:')
   })
 
-  it.skip('applies active styles when isActive is true', () => {
+  it('applies active styles when isActive is true', () => {
     render(<TrackStep {...defaultProps} isActive={true} />)
 
-    const listItem = screen.getByRole('listitem')
-    // TODO: clean this up and use test id's
-    const bg = listItem.querySelector('div')!
-    console.log(bg.style.background)
-    expect(bg.style.background).toContain(COLORS[0])
+    const bg = screen.getByTestId('trackstep-bg')
+
+    expect(bg).toHaveClass('bg-(--step-active)')
   })
 
   it('calls onStepChange with correct arguments when checkbox is clicked', () => {

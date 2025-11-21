@@ -36,10 +36,12 @@ export function TrackStep({
       )}
     >
       <div
-        style={{
-          background: isActive ? displayColor : '',
-        }}
-        className='absolute inset-0'
+        data-testid='trackstep-bg'
+        style={{ '--track-color': displayColor } as React.CSSProperties}
+        className={cn(
+          'absolute inset-0 step rounded-[2px]',
+          isActive && 'bg-(--step-active)',
+        )}
       />
       <input
         type='checkbox'
