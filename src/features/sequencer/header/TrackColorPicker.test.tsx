@@ -22,7 +22,7 @@ describe('TrackColorPicker', () => {
     render(<TrackColorPicker trackId={trackId} currentColor={currentColor} />)
     const trigger = screen.getByRole('button', { name: /change color/i })
     expect(trigger).toBeInTheDocument()
-    expect(trigger).toHaveStyle(`background-color: ${currentColor.primary}`)
+    expect(trigger).toHaveStyle(`background-color: ${currentColor}`)
   })
 
   it('opens the popover when the trigger is clicked', async () => {

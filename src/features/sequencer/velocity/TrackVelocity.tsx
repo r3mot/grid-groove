@@ -58,13 +58,16 @@ export function TrackVelocity({
   return (
     <button
       data-group={group}
-      style={{
-        backgroundColor: activeStep ? displayColor.muted : '',
-      }}
+      style={
+        {
+          '--track-color': displayColor,
+        } as React.CSSProperties
+      }
       className={cn(
-        'w-full h-full border relative overflow-hidden hover:border-red-500',
+        'velocity w-full h-full border relative overflow-hidden hover:border-red-500',
         "data-[group='odd']:bg-accent/60 bg-muted/20 rounded-[2px]",
         'cursor-grab focus:cursor-grabbing select-none',
+        activeStep && 'bg-(--velocity-bg)',
       )}
     >
       <div
@@ -75,11 +78,10 @@ export function TrackVelocity({
       >
         <div
           className={cn('absolute bottom-0 z-10 w-full', {
-            'border-t': activeStep,
+            'border-t bg-(--velocity-fill)': activeStep,
           })}
           style={{
             height: `${velocity * 100}%`,
-            backgroundColor: activeStep ? displayColor.muted : '',
           }}
         />
       </div>

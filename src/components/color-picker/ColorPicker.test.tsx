@@ -7,12 +7,13 @@ describe('ColorPicker', () => {
   const defaultColor = COLORS[0]
 
   it('renders all colors', () => {
-    const { getAllByTestId } = render(
+    const { getByTestId } = render(
       <ColorPicker currentColor={defaultColor} onSavedColor={vi.fn()} />,
     )
 
-    const btns = getAllByTestId(/rgba/)
-    expect(btns.length).toBe(COLORS.length)
+    COLORS.forEach(color => {
+      expect(getByTestId(color)).toBeInTheDocument()
+    })
   })
 
   it('selects a color when clicked', () => {
@@ -22,7 +23,7 @@ describe('ColorPicker', () => {
       <ColorPicker currentColor={defaultColor} onSavedColor={vi.fn()} />,
     )
 
-    const btn = getByTestId(target.primary)
+    const btn = getByTestId(target)
     fireEvent.click(btn)
 
     expect(btn.querySelector('svg')).toBeInTheDocument()
@@ -36,7 +37,7 @@ describe('ColorPicker', () => {
       <ColorPicker currentColor={defaultColor} onSavedColor={onSavedColor} />,
     )
 
-    fireEvent.click(getByTestId(selected.primary))
+    fireEvent.click(getByTestId(selected))
     fireEvent.click(getByTestId('save-color-btn'))
 
     expect(onSavedColor).toHaveBeenCalledTimes(1)

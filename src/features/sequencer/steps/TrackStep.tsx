@@ -1,4 +1,3 @@
-import { radialGradient } from '@/lib/color'
 import { cn, groupByColumn } from '@/lib/utils'
 import { DisplayColor } from '@/types'
 
@@ -37,10 +36,12 @@ export function TrackStep({
       )}
     >
       <div
-        style={{
-          background: isActive ? radialGradient(displayColor) : '',
-        }}
-        className='absolute inset-0'
+        data-testid='trackstep-bg'
+        style={{ '--track-color': displayColor } as React.CSSProperties}
+        className={cn(
+          'absolute inset-0 step rounded-[2px]',
+          isActive && 'bg-(--step-active)',
+        )}
       />
       <input
         type='checkbox'
