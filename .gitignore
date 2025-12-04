@@ -13,6 +13,11 @@ dist-ssr
 *.local
 .env
 
+# keep package-lock.json only
+yarn.lock
+pnpm-lock.yaml
+bun.lockb
+
 # Test
 coverage/*
 

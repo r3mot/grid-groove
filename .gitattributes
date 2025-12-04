@@ -1,0 +1,17 @@
+# Auto detect text files and normalize line endings to LF
+* text=auto eol=lf
+
+# Explicitly declare text files
+*.md text
+*.js text
+*.ts text
+*.tsx text
+*.json text
+*.yml text
+*.yaml text
+
+# Prevent lockfiles from being merged
+package-lock.json merge=binary
+yarn.lock merge=binary
+pnpm-lock.yaml merge=binary
+bun.lockb binary

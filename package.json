@@ -38,7 +38,7 @@
     "preview": "vite preview",
     "test": "vitest",
     "coverage": "vitest run --coverage",
-    "pretty": "npx prettier --write ."
+    "pretty": "prettier --write ."
   },
   "dependencies": {
     "@breezystack/lamejs": "^1.2.7",
