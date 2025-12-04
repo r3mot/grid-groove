@@ -1,50 +1,94 @@
 # 🎵 Grid Groovin
 
-> **An interactive Web Audio Step Sequencer powered by Tone.js**
+**An interactive Web Audio Step Sequencer powered by Tone.js**
 
-<img src="https://github.com/user-attachments/assets/ffc24f59-1858-4fcd-854e-6690464bf377" width="800" height="500" />
+<img src="https://github.com/user-attachments/assets/ffc24f59-1858-4fcd-854e-6690464bf377" width="800" />
 
----
+## Table of Contents
 
-## Getting Started
+- [Development](#development)
+  - [Docker (Recommended)](#docker-recommended)
+  - [Local Node](#local-node)
+- [Customizing Samples](#customizing-samples)
+- [License](#license)
 
-Follow these steps to clone, install dependencies, and start the development
-server.
+## Development
 
-### **Clone the Repository**
+You can run this project using **Docker (recommended)** for consistent
+environments, or directly with **local Node**.
+
+### Docker (Recommended)
+
+This ensures everyone uses the same Node version and dependencies.
+
+**Requirements:**  
+Docker Desktop (and optionally `make`).
+
+All Docker commands must be run from the `dev` directory:
 
 ```sh
-git clone https://github.com/r3mot/grid-groove
-cd grid-groove
+cd dev
 ```
 
-### **Install Dependencies**
+**First run (build + start):**
+
+```sh
+make dev-build
+```
+
+Or without `make`:
+
+```sh
+docker compose up --build
+```
+
+**Next runs:**
+
+```sh
+make dev
+# or
+docker compose up
+```
+
+**Common tasks:**
+
+- `make build`
+- `make test`
+- `make coverage`
+- `make lint`
+- `make pretty`
+- `make shell`
+- `make stop`
+
+### Local Node
+
+If you prefer running directly:
+
+**Requirements:** Node **22.x**, npm  
+If using `nvm`:
+
+```sh
+nvm use
+```
+
+Install deps and start dev server:
 
 ```sh
 npm install
-```
-
-### **Start the Development Server**
-
-```sh
 npm run dev
 ```
 
-Your dev server will be available at `http://localhost:5173`.
-
----
+Your app will be available at `http://localhost:5173`.
 
 ## Customizing Samples
 
-You can replace the default drum samples by updating the audio files in the
-`public/audio` directory.  
-Each sample's **filename** is used as the track name in the UI.
+Replace audio files in `public/audio`.  
+Each file’s **filename** becomes the track name in the UI.
 
-To change the sample paths used in the sequencer, update the file located at:
+Edit sample paths in:
 
-```js
+```ts
 // store/sampleStore.ts
-
 const samplePaths = [
   '/audio/clhat.wav',
   '/audio/gathat.wav',
@@ -56,10 +100,6 @@ const samplePaths = [
   '/audio/ride.wav',
 ]
 ```
-
-Replace the file paths with the new samples you’ve added.
-
----
 
 ## License
 
