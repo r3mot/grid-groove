@@ -1,7 +1,7 @@
 // Polyfill for `roundRect`
 
 if (
-  process.env.NODE_ENV === 'test' &&
+  process.env.NODE_ENV === 'development' &&
   !CanvasRenderingContext2D.prototype.roundRect
 ) {
   CanvasRenderingContext2D.prototype.roundRect = function (
