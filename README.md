@@ -1,48 +1,43 @@
-# 🎵 Grid Groovin
+# **Grid Groovin**
 
-**An interactive Web Audio Step Sequencer powered by Tone.js**
+### **Web Audio Step Sequencer (Tone.js)**
 
 <img src="https://github.com/user-attachments/assets/ffc24f59-1858-4fcd-854e-6690464bf377" width="800" />
 
-## Table of Contents
+## **Contents**
 
-- [Development](#development)
+- [Development Setup](#development-setup)
   - [Docker (Recommended)](#docker-recommended)
-  - [Local Node](#local-node)
+  - [Local Node Environment](#local-node-environment)
 - [Customizing Samples](#customizing-samples)
 - [License](#license)
 
-## Development
+## **Development Setup**
 
-You can run this project using **Docker (recommended)** for consistent
-environments, or directly with **local Node**.
+### **Docker (Recommended)**
 
-### Docker (Recommended)
+Use Docker for a consistent and isolated development environment.
 
-This ensures everyone uses the same Node version and dependencies.
+**Prerequisites:**
 
-**Requirements:**  
-Docker Desktop (and optionally `make`).
+- Docker Desktop
+- `make` (optional)
 
-All Docker commands must be run from the `dev` directory:
+**Run all Docker commands from the `/dev` directory:**
 
 ```sh
 cd dev
 ```
 
-**First run (build + start):**
+**Initial Build + Start**
 
 ```sh
 make dev-build
-```
-
-Or without `make`:
-
-```sh
+# or
 docker compose up --build
 ```
 
-**Next runs:**
+**Subsequent Runs**
 
 ```sh
 make dev
@@ -50,7 +45,7 @@ make dev
 docker compose up
 ```
 
-**Common tasks:**
+**Common Commands**
 
 - `make build`
 - `make test`
@@ -60,32 +55,62 @@ docker compose up
 - `make shell`
 - `make stop`
 
-### Local Node
+### **Local Node Environment**
 
-If you prefer running directly:
+Use this method if developing without Docker.
 
-**Requirements:** Node **22.x**, npm  
-If using `nvm`:
+**Requirements:**
+
+- Node **22.x**
+- Package manager: npm / yarn / pnpm / bun
+
+**macOS / Linux**
 
 ```sh
 nvm use
 ```
 
-Install deps and start dev server:
+**Windows** (`nvm-windows` does not read `.nvmrc`)
 
-```sh
-npm install
-npm run dev
+```powershell
+nvm use 22
 ```
 
-Your app will be available at `http://localhost:5173`.
+**Install Dependencies + Start Dev Server**
 
-## Customizing Samples
+Choose your preferred package manager:
 
-Replace audio files in `public/audio`.  
-Each file’s **filename** becomes the track name in the UI.
+```sh
+# npm
+npm install
+npm run dev
 
-Edit sample paths in:
+# yarn
+yarn install
+yarn dev
+
+# pnpm
+pnpm install
+pnpm dev
+
+# bun
+bun install
+bun run dev
+```
+
+App runs at: `http://localhost:5173`
+
+## **Customizing Samples**
+
+Replace audio files in:
+
+```
+public/audio
+```
+
+Each file’s **filename** appears as a track name in the UI.
+
+Update sample paths in:
 
 ```ts
 // store/sampleStore.ts
@@ -101,6 +126,6 @@ const samplePaths = [
 ]
 ```
 
-## License
+## **License**
 
 MIT © [r3mot](https://github.com/r3mot)
