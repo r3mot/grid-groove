@@ -27,7 +27,12 @@
     "noUncheckedSideEffectImports": true,
 
     /* Type checking */
-    "types": ["vitest/globals", "@testing-library/jest-dom", "vi-canvas-mock", "node"]
+    "types": [
+      "vitest/globals",
+      "@testing-library/jest-dom",
+      "vi-canvas-mock",
+      "node"
+    ]
   },
   "include": ["src", "vitest.setup.ts", "__mocks__", "__test__"]
 }
