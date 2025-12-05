@@ -10,9 +10,6 @@ import { RecursivePartial } from 'tone/build/esm/core/util/Interface'
 import { create } from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
 
-export type EffectName = 'reverb' | 'chorus' | 'delay' | 'distortion'
-export type PresetName = 'default' | 'loFi' | 'spacious' | 'moog'
-
 export type EffectPreset = {
   reverb: {
     decay: Seconds

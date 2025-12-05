@@ -3,7 +3,7 @@ import { Slider } from '../ui/slider'
 import { useDecibelGain } from '@/hooks/useDecibelGain'
 import { dbToGain } from 'tone'
 
-export interface FaderProps {
+interface FaderProps {
   minDb?: number
   maxDb?: number
   step?: number
