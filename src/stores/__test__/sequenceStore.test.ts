@@ -51,7 +51,8 @@ const store = () => useSequenceStore.getState()
 
 const fakeSampler = (id: string) => ({
   id,
-  mute: false,
+  channel: { mute: false },
+  soloMuted: false,
   triggerAttackRelease: vi.fn(),
 })
 
@@ -193,7 +194,7 @@ describe('sequence playback', () => {
     expect(snare.triggerAttackRelease).not.toHaveBeenCalled()
   })
 
-  it.fails('plays a silent step at zero velocity', () => {
+  it('plays a silent step at zero velocity', () => {
     const [kick] = setup({ [KICK]: [0] })
     setVelocity(KICK, 0, SILENT_VELOCITY)
 
@@ -236,14 +237,14 @@ describe('sequence playback', () => {
     expect(sequence.stop).not.toHaveBeenCalled()
   })
 
-  it.fails('saves the tempo with the beat', () => {
+  it('saves the tempo with the beat', () => {
     setup()
     store().setPlaybackBPM(SAVED_BPM)
 
     expect(savedState().playbackBPM).toBe(SAVED_BPM)
   })
 
-  it.fails('restores the saved tempo to the transport on load', async () => {
+  it('restores the saved tempo to the transport on load', async () => {
     localStorage.setItem(
       'sequencer-store',
       JSON.stringify({ state: { playbackBPM: SAVED_BPM }, version: 0 }),
@@ -256,34 +257,34 @@ describe('sequence playback', () => {
 })
 
 describe('mute and solo', () => {
-  it('soloing a track mutes every other track', () => {
+  it('soloing a track silences every other track', () => {
     const [kick, snare] = setup()
 
     store().toggleSoloChannel(kick.id)
-    expect(kick.mute).toBe(false)
-    expect(snare.mute).toBe(true)
+    expect(kick.soloMuted).toBe(false)
+    expect(snare.soloMuted).toBe(true)
 
     store().toggleSoloChannel(snare.id)
-    expect(snare.mute).toBe(false)
+    expect(snare.soloMuted).toBe(false)
   })
 
-  it('clearing all solos unmutes every track', () => {
+  it('clearing all solos un-silences every track', () => {
     const [kick, snare] = setup()
 
     store().toggleSoloChannel(kick.id)
     store().toggleSoloChannel(kick.id)
 
-    expect(kick.mute).toBe(false)
-    expect(snare.mute).toBe(false)
+    expect(kick.soloMuted).toBe(false)
+    expect(snare.soloMuted).toBe(false)
   })
 
-  it.fails('clearing solo keeps a manually muted track muted', () => {
+  it('clearing solo keeps a manually muted track muted', () => {
     const [kick, snare] = setup()
-    kick.mute = true
+    kick.channel.mute = true
 
     store().toggleSoloChannel(snare.id)
     store().toggleSoloChannel(snare.id)
 
-    expect(kick.mute).toBe(true)
+    expect(kick.channel.mute).toBe(true)
   })
 })

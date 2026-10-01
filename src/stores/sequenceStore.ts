@@ -180,7 +180,7 @@ export const useSequenceStore = create<SequencerState>()(
         updateSoloStates: () => {
           const { samplers, soloChannelIds } = get()
           samplers.forEach(sampler => {
-            sampler.mute =
+            sampler.soloMuted =
               soloChannelIds.size > 0 && !soloChannelIds.has(sampler.id)
           })
         },
@@ -236,7 +236,11 @@ export const useSequenceStore = create<SequencerState>()(
           steps: state.steps,
           velocities: state.velocities,
           isClearWarningRead: state.isClearWarningRead,
+          playbackBPM: state.playbackBPM,
         }),
+        onRehydrateStorage: () => state => {
+          if (state) getTransport().bpm.value = state.playbackBPM
+        },
       },
     ),
   ),
@@ -298,7 +302,7 @@ const initSequence = (set: SSet, get: SGet, force: boolean) => {
         samplers.forEach((sampler, row) => {
           const stepIsActive = get().steps[row][col]
           if (stepIsActive) {
-            const velocity = get().velocities[row][col] || 1
+            const velocity = get().velocities[row][col] ?? 1
             sampler.triggerAttackRelease('C4', '2n', time, velocity)
           }
         })
