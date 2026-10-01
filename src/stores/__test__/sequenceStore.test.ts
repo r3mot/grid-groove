@@ -193,7 +193,7 @@ describe('sequence playback', () => {
     expect(snare.triggerAttackRelease).not.toHaveBeenCalled()
   })
 
-  it.fails('plays a silent step at zero velocity', () => {
+  it('plays a silent step at zero velocity', () => {
     const [kick] = setup({ [KICK]: [0] })
     setVelocity(KICK, 0, SILENT_VELOCITY)
 

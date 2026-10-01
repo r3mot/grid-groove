@@ -298,7 +298,7 @@ const initSequence = (set: SSet, get: SGet, force: boolean) => {
         samplers.forEach((sampler, row) => {
           const stepIsActive = get().steps[row][col]
           if (stepIsActive) {
-            const velocity = get().velocities[row][col] || 1
+            const velocity = get().velocities[row][col] ?? 1
             sampler.triggerAttackRelease('C4', '2n', time, velocity)
           }
         })
