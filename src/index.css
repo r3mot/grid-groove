@@ -45,10 +45,10 @@
   --shadow-inset-side: inset 3px 0px 6px 0px rgba(0, 0, 0, 0.7);
   --shadow-inset-bottom: inset 3px -3px 6px 0px rgba(0, 0, 0, 0.7);
 
-  --animate-rotate-device: rotate-device 3.2s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+  --animate-rotate-device: rotate-device 3.2s cubic-bezier(0.65, 0, 0.35, 1)
+    infinite;
 
   @keyframes rotate-device {
-
     0%,
     20% {
       transform: rotate(0deg);
@@ -72,9 +72,11 @@
 
 .step {
   --step-active-darken: 25%;
-  --step-active: color-mix(in srgb,
-      var(--track-color) calc(100% - var(--step-active-darken)),
-      black var(--step-active-darken));
+  --step-active: color-mix(
+    in srgb,
+    var(--track-color) calc(100% - var(--step-active-darken)),
+    black var(--step-active-darken)
+  );
 }
 
 /*
@@ -86,7 +88,6 @@
   color utility to any element that depends on these defaults.
 */
 @layer base {
-
   *,
   ::after,
   ::before,
@@ -130,11 +131,14 @@
   height: var(--thumb-width);
   background-color: var(--thumb-bg-color);
   background-image:
-    repeating-linear-gradient(90deg,
+    repeating-linear-gradient(
+      90deg,
       transparent,
       transparent 5px,
-      rgba(0, 0, 0, 1) 6px),
-    linear-gradient(90deg,
+      rgba(0, 0, 0, 1) 6px
+    ),
+    linear-gradient(
+      90deg,
       rgb(70, 70, 70) 0%,
       rgb(90, 90, 90) 14%,
       rgb(20, 20, 20) 15%,
@@ -143,7 +147,8 @@
       rgb(30, 30, 30) 52%,
       rgb(90, 90, 90) 84%,
       rgb(20, 20, 20) 85%,
-      rgb(30, 30, 30) 100%);
+      rgb(30, 30, 30) 100%
+    );
   cursor: pointer;
   border-radius: var(--thumb-border-radius);
   box-shadow:
