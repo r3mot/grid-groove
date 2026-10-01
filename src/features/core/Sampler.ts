@@ -1,5 +1,5 @@
 import { DECIBEL_RANGE } from '@/lib/constants'
-import { Channel, Meter, Sampler as ToneSampler } from 'tone'
+import { Channel, Meter, Sampler as ToneSampler, Volume } from 'tone'
 import { MainBus } from './MainBus'
 import { immerable } from 'immer'
 import { DisplayColor } from '@/types'
@@ -27,9 +27,7 @@ export class Sampler extends ToneSampler {
   private readonly samplerChannel: Channel
   private readonly peakMeter: Meter
   private readonly mainBus: MainBus
-
-  private soloed: boolean = false
-  private muted: boolean = false
+  private readonly soloGate: Volume
 
   private readonly metadata: SampleMetadata
 
@@ -55,8 +53,11 @@ export class Sampler extends ToneSampler {
       volume: DECIBEL_RANGE.defaultDb,
     })
 
-    this.samplerChannel.chain(this.peakMeter, this.mainBus)
-    this.connect(this.samplerChannel)
+    // tonejs native solo only allows a single channel pass thru
+    // which will silence our main bus, so solo has its own gate
+    this.soloGate = new Volume()
+
+    this.chain(this.soloGate, this.samplerChannel, this.peakMeter, this.mainBus)
   }
 
   get id(): string {
@@ -83,12 +84,8 @@ export class Sampler extends ToneSampler {
     return this.samplerChannel
   }
 
-  get solo(): boolean {
-    return this.soloed
-  }
-
-  get mute(): boolean {
-    return this.muted
+  get soloMuted(): boolean {
+    return this.soloGate.mute
   }
 
   get meta(): SampleMetadata {
@@ -99,8 +96,7 @@ export class Sampler extends ToneSampler {
     this.samplerChannel.pan.value = value
   }
 
-  set mute(enabled: boolean) {
-    this.samplerChannel.mute = enabled
-    this.muted = enabled
+  set soloMuted(muted: boolean) {
+    this.soloGate.mute = muted
   }
 }

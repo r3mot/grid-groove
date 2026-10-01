@@ -180,7 +180,7 @@ export const useSequenceStore = create<SequencerState>()(
         updateSoloStates: () => {
           const { samplers, soloChannelIds } = get()
           samplers.forEach(sampler => {
-            sampler.mute =
+            sampler.soloMuted =
               soloChannelIds.size > 0 && !soloChannelIds.has(sampler.id)
           })
         },
@@ -239,7 +239,7 @@ export const useSequenceStore = create<SequencerState>()(
           playbackBPM: state.playbackBPM,
         }),
         onRehydrateStorage: () => state => {
-          if (state) getTransport().bpm.value = state.playbackBPM // restores it on load
+          if (state) getTransport().bpm.value = state.playbackBPM
         },
       },
     ),
