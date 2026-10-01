@@ -236,14 +236,14 @@ describe('sequence playback', () => {
     expect(sequence.stop).not.toHaveBeenCalled()
   })
 
-  it.fails('saves the tempo with the beat', () => {
+  it('saves the tempo with the beat', () => {
     setup()
     store().setPlaybackBPM(SAVED_BPM)
 
     expect(savedState().playbackBPM).toBe(SAVED_BPM)
   })
 
-  it.fails('restores the saved tempo to the transport on load', async () => {
+  it('restores the saved tempo to the transport on load', async () => {
     localStorage.setItem(
       'sequencer-store',
       JSON.stringify({ state: { playbackBPM: SAVED_BPM }, version: 0 }),

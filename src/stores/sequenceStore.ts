@@ -236,7 +236,11 @@ export const useSequenceStore = create<SequencerState>()(
           steps: state.steps,
           velocities: state.velocities,
           isClearWarningRead: state.isClearWarningRead,
+          playbackBPM: state.playbackBPM,
         }),
+        onRehydrateStorage: () => state => {
+          if (state) getTransport().bpm.value = state.playbackBPM // restores it on load
+        },
       },
     ),
   ),
