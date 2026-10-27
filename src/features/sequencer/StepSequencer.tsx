@@ -1,11 +1,13 @@
-import { useSequenceStore } from '@/stores/sequenceStore'
+import { audioEngine } from '@/audio/engine'
+import { useSampleStore } from '@/stores/sampleStore'
+import { useUIStore } from '@/stores/uiStore'
 import { TrackHeader } from './header/TrackHeader'
 import { cn } from '@/lib/utils'
 import { TrackSteps } from './steps/TrackSteps'
 import { TrackVelocities } from './velocity/TrackVelocities'
 import { ClearTrack } from './controls/ClearTrack'
 import { ComponentType } from 'react'
-import { Sampler } from '../core/Sampler'
+import { Sample } from '@/types'
 
 function ShadowContainer({ children }: { children: React.ReactNode }) {
   return (
@@ -23,28 +25,34 @@ function ShadowContainer({ children }: { children: React.ReactNode }) {
   )
 }
 
-const TrackContents: Record<string, ComponentType<{ sampler: Sampler }>> = {
+const TrackContents: Record<
+  string,
+  ComponentType<{ sample: Sample; row: number }>
+> = {
   step: TrackSteps,
   velocity: TrackVelocities,
 }
 
 export function StepSequencer() {
-  const samplers = useSequenceStore(state => state.samplers)
-  const displayMode = useSequenceStore(state => state.displayMode)
+  const samples = useSampleStore(state => state.samples)
+  const displayMode = useUIStore(state => state.displayMode)
   const TrackContent = TrackContents[displayMode]
 
   return (
     <section className='w-full py-4 lg:border lg:rounded-md bg-card'>
       <ul className='overflow-x-auto scrollbar'>
-        {samplers.map(sampler => (
-          <li key={sampler.meta.id} className='grid grid-cols-[1fr_3rem] group'>
+        {samples.map((sample, row) => (
+          <li key={sample.id} className='grid grid-cols-[1fr_3rem] group'>
             <div className='grid grid-cols-[13rem_1fr] lg:grid-cols-[20rem_1fr] border-b group-last:border-b-0'>
-              <TrackHeader sampler={sampler} />
+              <TrackHeader
+                sample={sample}
+                sampler={audioEngine.getSampler(sample.id)}
+              />
               <ShadowContainer>
-                {TrackContent && <TrackContent sampler={sampler} />}
+                {TrackContent && <TrackContent sample={sample} row={row} />}
               </ShadowContainer>
             </div>
-            <ClearTrack row={sampler.meta.position} />
+            <ClearTrack row={row} />
           </li>
         ))}
       </ul>

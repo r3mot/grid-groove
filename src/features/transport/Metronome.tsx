@@ -1,7 +1,7 @@
 import { MetronomeIcon } from '@/components/icons/Metronome'
 import { toggleVariants } from '@/components/ui/toggle'
 import { cn } from '@/lib/utils'
-import { useSequenceStore } from '@/stores/sequenceStore'
+import { useTransportStore } from '@/stores/transportStore'
 import { useEffect, useRef, useState } from 'react'
 import { getTransport, Loop, Synth, SynthOptions } from 'tone'
 import { RecursivePartial } from 'tone/build/esm/core/util/Interface'
@@ -24,7 +24,7 @@ export function Metronome() {
   const loop = useRef<Loop | null>(null)
   const [isPlaying, setIsPlaying] = useState(false)
 
-  const playbackBPM = useSequenceStore(state => state.playbackBPM)
+  const playbackBPM = useTransportStore(state => state.bpm)
 
   useEffect(() => {
     synth.current = new Synth(synthOptions).toDestination()

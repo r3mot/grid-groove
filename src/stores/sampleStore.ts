@@ -22,7 +22,6 @@ interface SampleState {
   addSample: (sample: Sample) => void
   replaceSample: (sample: Sample) => void
   updateSample: (sample: Sample) => void
-  initialize: () => void
 }
 
 export const useSampleStore = create<SampleState>()(
@@ -44,14 +43,10 @@ export const useSampleStore = create<SampleState>()(
             samples: state.samples.map(s => (s.id === sample.id ? sample : s)),
           }))
         },
-
-        initialize: () => {
-          // fake set
-          set(state => state)
-        },
       }),
       {
         name: 'sample-store',
+        version: 0,
       },
     ),
   ),

@@ -1,15 +1,16 @@
 import { TrashCanIcon } from '@/components/icons/TrashCan'
 import { toggleVariants } from '@/components/ui/toggle'
 import { WarningDialog } from '@/components/WarningDialog'
-import { useSequenceStore } from '@/stores/sequenceStore'
+import { usePatternStore } from '@/stores/patternStore'
+import { useUIStore } from '@/stores/uiStore'
 
 import { useState } from 'react'
 import { cn } from '@/lib/utils'
 
 export function ClearStepsDialog() {
-  const clearSteps = useSequenceStore(state => state.clearSteps)
-  const isWarningRead = useSequenceStore(state => state.isClearWarningRead)
-  const setWarningRead = useSequenceStore(state => state.setClearWarningRead)
+  const clearSteps = usePatternStore(state => state.clearSteps)
+  const isWarningRead = useUIStore(state => state.isClearWarningRead)
+  const setWarningRead = useUIStore(state => state.setClearWarningRead)
 
   const [isDialogOpen, setIsDialogOpen] = useState(false)
 

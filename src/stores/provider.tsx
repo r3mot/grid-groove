@@ -1,30 +1,34 @@
+import { audioEngine } from '@/audio/engine'
 import { useSampleStore } from './sampleStore'
-import { useSequenceStore } from './sequenceStore'
-import { useEffect } from 'react'
+import { usePatternStore } from './patternStore'
+import { useEffect, useState } from 'react'
 
-/**
- *
- * TODO: Get good. This is hacky but works for now.
- */
+type Status = 'loading' | 'ready' | 'error'
+
 export function StoreProvider({ children }: { children: React.ReactNode }) {
-  const sequenceInitialized = useSequenceStore(
-    state => state.isSequenceInitialized,
+  const [status, setStatus] = useState<Status>(() =>
+    audioEngine.isReady ? 'ready' : 'loading',
   )
-  const initialize = useSequenceStore(state => state.initialize)
-  const initializeSamples = useSampleStore(state => state.initialize)
 
   useEffect(() => {
-    async function setup() {
-      initializeSamples()
-      await initialize()
-    }
+    if (audioEngine.isReady) return
 
-    if (!sequenceInitialized) {
-      setup()
+    try {
+      const { samples } = useSampleStore.getState()
+      usePatternStore.getState().ensureTracks(samples.length)
+      audioEngine.init(samples)
+      setStatus('ready')
+    } catch (error) {
+      console.error('Failed to start audio engine:', error)
+      setStatus('error')
     }
-  }, [sequenceInitialized, initialize, initializeSamples])
+  }, [])
 
-  if (!sequenceInitialized) {
+  if (status === 'error') {
+    return <div>Something went wrong loading the sequencer.</div>
+  }
+
+  if (status === 'loading') {
     return <div>Loading...</div>
   }
 

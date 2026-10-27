@@ -162,7 +162,10 @@ export const usePresetStore = create<PresetStore>()(
         currentPreset: 'default',
         setPreset: presetName => set(() => ({ currentPreset: presetName })),
       }),
-      { name: 'preset-store' },
+      {
+        name: 'preset-store',
+        version: 0,
+      },
     ),
   ),
 )

@@ -1,21 +1,20 @@
-import { useSequenceStore } from '@/stores/sequenceStore'
+import { usePatternStore } from '@/stores/patternStore'
 import { TrackVelocity } from './TrackVelocity'
-import { Sampler } from '@/features/core/Sampler'
+import { Sample } from '@/types'
 
 interface TrackVelocitiesProps {
-  sampler: Sampler
+  sample: Sample
+  row: number
 }
 
-export function TrackVelocities({ sampler }: TrackVelocitiesProps) {
-  const stepCount = useSequenceStore(state => state.stepCount)
-
-  const { position, color } = sampler.meta
+export function TrackVelocities({ sample, row }: TrackVelocitiesProps) {
+  const stepCount = usePatternStore(state => state.stepCount)
 
   return (
     <ul className='grid grid-flow-col gap-1 p-1 py-1.5 w-full'>
       {[...Array(stepCount).keys()].map(step => (
-        <li key={`step-${position}-${step}`}>
-          <TrackVelocity row={position} column={step} displayColor={color} />
+        <li key={`step-${row}-${step}`}>
+          <TrackVelocity row={row} column={step} displayColor={sample.color} />
         </li>
       ))}
     </ul>

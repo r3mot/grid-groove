@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils'
-import { useSequenceStore } from '@/stores/sequenceStore'
+import { useMixerStore } from '@/stores/mixerStore'
 import { toggleVariants } from '@/components/ui/toggle'
 import { HeadsetIcon } from '@/components/icons/Headset'
 
@@ -8,12 +8,12 @@ interface SoloChannelProps {
 }
 
 export function SoloChannel({ id }: SoloChannelProps) {
-  const soloIds = useSequenceStore(state => state.soloChannelIds)
-  const toggleSolo = useSequenceStore(state => state.toggleSoloChannel)
+  const isSoloed = useMixerStore(state => state.soloIds.has(id))
+  const toggleSolo = useMixerStore(state => state.toggleSolo)
 
   return (
     <button
-      data-state={soloIds.has(id) ? 'on' : 'off'}
+      data-state={isSoloed ? 'on' : 'off'}
       onClick={() => toggleSolo(id)}
       className={cn(toggleVariants(), 'data-[state=on]:bg-blue-600')}
     >

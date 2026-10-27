@@ -1,11 +1,11 @@
-import { useSequenceStore } from '@/stores/sequenceStore'
+import { audioEngine } from '@/audio/engine'
 import { Fragment } from 'react/jsx-runtime'
 import { MainBusChannel } from './channels/MainBusChannel'
 import { SamplerChannel } from './channels/SamplerChannel'
 import { EffectBusChannel } from './channels/EffectBusChannel'
 
 export function ChannelMixer() {
-  const samplers = useSequenceStore(state => state.samplers)
+  const { samplers } = audioEngine
 
   return (
     <section className='w-fit'>

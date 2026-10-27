@@ -2,13 +2,15 @@ import { TrackColorPicker } from './TrackColorPicker'
 import { MuteChannel } from '../controls/MuteChannel'
 import { SoloChannel } from '../controls/SoloChannel'
 import { Sampler } from '@/features/core/Sampler'
+import { Sample } from '@/types'
 
 interface TrackHeaderProps {
-  sampler: Sampler
+  sample: Sample
+  sampler?: Sampler
 }
 
-export function TrackHeader({ sampler }: TrackHeaderProps) {
-  const { id, color, name } = sampler.meta
+export function TrackHeader({ sample, sampler }: TrackHeaderProps) {
+  const { id, color, name } = sample
 
   return (
     <div className='relative flex items-center justify-between px-2 py-1 pl-4'>
@@ -17,7 +19,7 @@ export function TrackHeader({ sampler }: TrackHeaderProps) {
         <span className='text-sm select-none'>{name}</span>
       </div>
       <div className='space-x-1'>
-        <MuteChannel channel={sampler.channel} />
+        {sampler && <MuteChannel channel={sampler.channel} />}
         <SoloChannel id={id} />
       </div>
     </div>
