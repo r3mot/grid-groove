@@ -21,7 +21,10 @@ export const useUIStore = create<UIState>()(
         setDisplayMode: displayMode => set({ displayMode }),
         setClearWarningRead: () => set({ isClearWarningRead: true }),
       }),
-      { name: 'ui-store' },
+      {
+        name: 'ui-store',
+        version: 0,
+      },
     ),
   ),
 )

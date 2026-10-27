@@ -35,6 +35,7 @@ export const useTransportStore = create<TransportState>()(
       }),
       {
         name: 'transport-store',
+        version: 0,
         partialize: state => ({ bpm: state.bpm }),
       },
     ),

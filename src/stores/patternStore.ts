@@ -93,6 +93,7 @@ export const usePatternStore = create<PatternState>()(
       }),
       {
         name: 'pattern-store',
+        version: 0,
         partialize: state => ({
           stepCount: state.stepCount,
           subdivision: state.subdivision,

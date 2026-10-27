@@ -46,6 +46,7 @@ export const useSampleStore = create<SampleState>()(
       }),
       {
         name: 'sample-store',
+        version: 0,
       },
     ),
   ),
