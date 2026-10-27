@@ -1,4 +1,4 @@
-import { useSequenceStore } from '@/stores/sequenceStore'
+import { audioEngine } from '@/audio/engine'
 import { ChannelPan } from '../controls/ChannelPan'
 import { ChannelFader } from '../controls/ChannelFader'
 import { ChannelMeter } from '../controls/ChannelMeter'
@@ -6,11 +6,7 @@ import { ChannelStrip } from '../presentation/ChannelStrip'
 import { ChannelName } from '../presentation/ChannelName'
 
 export function EffectBusChannel() {
-  const effectBus = useSequenceStore(state => state.effectBus)
-
-  if (!effectBus) return null
-
-  const { channel, meter } = effectBus
+  const { channel, meter } = audioEngine.effectBus
 
   return (
     <ChannelStrip className='bg-muted'>

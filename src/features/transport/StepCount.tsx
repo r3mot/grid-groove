@@ -5,12 +5,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { useSequenceStore } from '@/stores/sequenceStore'
+import { usePatternStore } from '@/stores/patternStore'
 import { type StepCount } from '@/types'
 
 export function StepCount() {
-  const stepCount = useSequenceStore(state => state.stepCount)
-  const setStepCount = useSequenceStore(state => state.setStepCount)
+  const stepCount = usePatternStore(state => state.stepCount)
+  const setStepCount = usePatternStore(state => state.setStepCount)
 
   function handleChange(steps: string) {
     setStepCount(parseInt(steps, 10) as StepCount)

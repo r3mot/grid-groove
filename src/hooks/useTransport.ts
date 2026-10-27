@@ -1,8 +1,8 @@
-import { useSequenceStore } from '@/stores/sequenceStore'
+import { useTransportStore } from '@/stores/transportStore'
 
 export function useTransport() {
-  const transportState = useSequenceStore(state => state.playbackState)
-  const setTransportState = useSequenceStore(state => state.setPlaybackState)
+  const transportState = useTransportStore(state => state.playbackState)
+  const setTransportState = useTransportStore(state => state.setPlaybackState)
 
   async function start() {
     if (transportState !== 'started') {

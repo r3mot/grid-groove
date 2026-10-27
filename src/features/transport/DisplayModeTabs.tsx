@@ -1,10 +1,10 @@
-import { useSequenceStore } from '@/stores/sequenceStore'
+import { useUIStore } from '@/stores/uiStore'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { DisplayMode } from '@/types'
 
 export function DisplayModeTabs() {
-  const displayMode = useSequenceStore(state => state.displayMode)
-  const setDisplayMode = useSequenceStore(state => state.setDisplayMode)
+  const displayMode = useUIStore(state => state.displayMode)
+  const setDisplayMode = useUIStore(state => state.setDisplayMode)
 
   function handleChange(mode: string) {
     setDisplayMode(mode as DisplayMode)

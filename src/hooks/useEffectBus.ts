@@ -1,23 +1,18 @@
-import { useSequenceStore } from '@/stores/sequenceStore'
+import { audioEngine } from '@/audio/engine'
 import { useState } from 'react'
 import { Channel } from 'tone'
 
 export function useEffectBus(source: Channel) {
   const [isConnected, setIsConnected] = useState(false)
-  const effectBus = useSequenceStore(state => state.effectBus)
 
   function recieve() {
-    if (effectBus) {
-      effectBus.route(source)
-      setIsConnected(true)
-    }
+    audioEngine.effectBus.route(source)
+    setIsConnected(true)
   }
 
   function remove() {
-    if (effectBus) {
-      effectBus.unroute(source)
-      setIsConnected(false)
-    }
+    audioEngine.effectBus.unroute(source)
+    setIsConnected(false)
   }
 
   function toggleConnection() {

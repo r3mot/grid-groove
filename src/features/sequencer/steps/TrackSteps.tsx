@@ -1,28 +1,31 @@
-import { useSequenceStore } from '@/stores/sequenceStore'
+import { usePatternStore } from '@/stores/patternStore'
 import { TrackStep } from './TrackStep'
-import { Sampler } from '@/features/core/Sampler'
+import { Sample } from '@/types'
 
 interface TrackStepsProps {
-  sampler: Sampler
+  sample: Sample
+  row: number
 }
 
-export function TrackSteps({ sampler }: TrackStepsProps) {
-  const stepCount = useSequenceStore(state => state.stepCount)
-  const steps = useSequenceStore(state => state.steps)
-  const updateStep = useSequenceStore(state => state.updateStep)
+export function TrackSteps({ sample, row }: TrackStepsProps) {
+  const stepCount = usePatternStore(state => state.stepCount)
+  const rowSteps = usePatternStore(state => state.steps[row])
+  const setStep = usePatternStore(state => state.setStep)
 
-  const { position, color } = sampler.meta
+  function handleStepChange(step: number, row: number, active: boolean) {
+    setStep(row, step, active)
+  }
 
   return (
     <ul className='grid grid-flow-col gap-1 p-1 py-1.5 w-full'>
       {[...Array(stepCount).keys()].map(step => (
         <TrackStep
-          key={`${position}-${step}`}
-          row={position}
+          key={`${row}-${step}`}
+          row={row}
           column={step}
-          displayColor={color}
-          isActive={steps[position][step]}
-          onStepChange={updateStep}
+          displayColor={sample.color}
+          isActive={rowSteps?.[step] ?? false}
+          onStepChange={handleStepChange}
         />
       ))}
     </ul>

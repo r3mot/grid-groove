@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, it, expect } from 'vitest'
-import { useSequenceStore } from '@/stores/sequenceStore'
+import { usePatternStore } from '@/stores/patternStore'
 import { ClearTrack } from './ClearTrack'
 import { createStepsArray, createUniformArray } from '@/lib/test'
 
@@ -18,7 +18,7 @@ describe('ClearTrack Component with Zustand Store', () => {
 
     const initialVelocities = createUniformArray(rows, columns, 1)
 
-    useSequenceStore.setState({
+    usePatternStore.setState({
       steps: initialSteps,
       velocities: initialVelocities,
       stepCount: columns,
@@ -29,7 +29,7 @@ describe('ClearTrack Component with Zustand Store', () => {
     const button = screen.getByRole('button')
     await userEvent.click(button)
 
-    const { steps, velocities } = useSequenceStore.getState()
+    const { steps, velocities } = usePatternStore.getState()
 
     expect(steps[1]).toEqual(Array(columns).fill(false))
     expect(velocities[1]).toEqual(Array(columns).fill(1))

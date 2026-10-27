@@ -2,13 +2,11 @@ import { DECIBEL_RANGE } from '@/lib/constants'
 import { Channel, Meter, Sampler as ToneSampler, Volume } from 'tone'
 import { MainBus } from './MainBus'
 import { immerable } from 'immer'
-import { DisplayColor } from '@/types'
 
 interface SamplerOptions {
   sampleId: string
   sampleUrl: string
   sampleName: string
-  sampleColor: DisplayColor
   mainBus: MainBus
   position: number
 }
@@ -17,7 +15,6 @@ interface SampleMetadata {
   id: string
   name: string
   url: string
-  color: DisplayColor
   position: number
 }
 
@@ -41,7 +38,6 @@ export class Sampler extends ToneSampler {
       id: options.sampleId,
       name: options.sampleName,
       url: options.sampleUrl,
-      color: options.sampleColor,
       position: options.position,
     }
 
@@ -66,10 +62,6 @@ export class Sampler extends ToneSampler {
 
   get sampleName(): string {
     return this.metadata.name
-  }
-
-  get color(): DisplayColor | undefined {
-    return this.metadata.color
   }
 
   get meter(): Meter {

@@ -1,13 +1,13 @@
 import { clamp } from '@/lib/math'
 import { cn } from '@/lib/utils'
-import { useSequenceStore } from '@/stores/sequenceStore'
+import { useTransportStore } from '@/stores/transportStore'
 import { useCallback, useEffect, useState } from 'react'
 
 export function TransportBPM() {
   const [isDragging, setIsDragging] = useState(false)
 
-  const playbackBpm = useSequenceStore(state => state.playbackBPM)
-  const setBPM = useSequenceStore(state => state.setPlaybackBPM)
+  const playbackBpm = useTransportStore(state => state.bpm)
+  const setBPM = useTransportStore(state => state.setBpm)
 
   const updateBPM = useCallback((bpm: number) => setBPM(bpm), [setBPM])
 

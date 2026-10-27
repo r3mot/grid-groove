@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils'
-import { useSequenceStore } from '@/stores/sequenceStore'
+import { usePatternStore } from '@/stores/patternStore'
 import { DisplayColor } from '@/types'
 import { useEffect, useRef, useState } from 'react'
 
@@ -14,13 +14,12 @@ export function TrackVelocity({
   column,
   displayColor,
 }: TrackVelocityProps) {
-  const steps = useSequenceStore(state => state.steps)
-  const velocities = useSequenceStore(state => state.velocities)
-  const activeStep = steps[row][column]
-  const group = column % 8 < 4 ? 'even' : 'odd'
-  const [velocity, setVelocity] = useState(
-    activeStep ? velocities[row][column] : 0,
+  const activeStep = usePatternStore(state => state.steps[row]?.[column])
+  const storedVelocity = usePatternStore(
+    state => state.velocities[row]?.[column] ?? 1,
   )
+  const group = column % 8 < 4 ? 'even' : 'odd'
+  const [velocity, setVelocity] = useState(activeStep ? storedVelocity : 0)
 
   const [isDragging, setIsDragging] = useState(false)
   const dragRef = useRef<HTMLDivElement>(null)
@@ -34,7 +33,7 @@ export function TrackVelocity({
     )
 
     setVelocity(velocity)
-    useSequenceStore.getState().updateVelocity(velocity, column, row)
+    usePatternStore.getState().setVelocity(row, column, velocity)
   }
 
   const stopDrag = () => {
@@ -51,9 +50,9 @@ export function TrackVelocity({
 
   useEffect(() => {
     if (activeStep) {
-      setVelocity(velocities[row][column])
+      setVelocity(storedVelocity)
     }
-  }, [activeStep, velocities, row, column])
+  }, [activeStep, storedVelocity])
 
   return (
     <button

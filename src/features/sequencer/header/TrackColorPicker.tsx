@@ -5,7 +5,7 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover'
 import { ColorPicker } from '@/components/color-picker/ColorPicker'
-import { useSequenceStore } from '@/stores/sequenceStore'
+import { useSampleStore } from '@/stores/sampleStore'
 import { DisplayColor } from '@/types'
 
 interface TrackColorPickerProps {
@@ -17,11 +17,14 @@ export function TrackColorPicker({
   trackId,
   currentColor,
 }: TrackColorPickerProps) {
-  const updateSampler = useSequenceStore(state => state.updateSamplerColor)
+  const sample = useSampleStore(state =>
+    state.samples.find(s => s.id === trackId),
+  )
+  const updateSample = useSampleStore(state => state.updateSample)
   const [open, setOpen] = useState(false)
 
   function handleChange(color: DisplayColor) {
-    updateSampler(trackId, color)
+    if (sample) updateSample({ ...sample, color })
     setOpen(false)
   }
 

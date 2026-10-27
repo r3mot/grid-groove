@@ -1,8 +1,8 @@
-import { useSequenceStore } from '@/stores/sequenceStore'
+import { usePatternStore } from '@/stores/patternStore'
 import { Trash2Icon } from 'lucide-react'
 
 export function ClearTrack({ row }: { row: number }) {
-  const clearStepRow = useSequenceStore(state => state.clearStepRow)
+  const clearStepRow = usePatternStore(state => state.clearStepRow)
 
   function handleClick() {
     clearStepRow(row)
